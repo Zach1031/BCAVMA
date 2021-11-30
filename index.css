@@ -1,3 +1,20 @@
 .carousel-item {
-    height: 300px;
+    height: fit-content
   }
+
+  .carousel{
+    height: 500px;
+  }
+
+.parallax {
+  /* The image used */
+
+  /* Set a specific height */
+
+  /* Create the parallax scrolling effect */
+
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
