@@ -18,3 +18,39 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80%;
+  width: 80%;
+  opacity: 0%;
+  transition: .5s ease;
+  background-color: #c2d8df;
+}
+
+.container:hover .overlay {
+  opacity: 50%;
+  box-shadow: 10px 10px 5px rgb(92, 91, 91);
+}
+
+.container {
+  position: relative;
+  width: 50%;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.description-text{
+  color: rgb(65, 64, 64);
+  font-family: sans-serif;
+  text-align: center;
+  vertical-align: center;
+}
