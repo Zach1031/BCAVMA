@@ -73,13 +73,11 @@
 }
 
 .overlay {
-  position: absolute; 
-  bottom: 0; 
-  background: rgb(167, 181, 226);
-  background: rgba(167, 181, 226); /* Black see-through */
-  color: #f1f1f1; 
-  width: inherit;
-  height: inherit;
+  position: absolute;
+  top: 0;
+  height: 92%;
+  width: 86%;
+  opacity: 0%;
   transition: .5s ease;
   opacity:0;
   color: white;
