@@ -14,7 +14,7 @@
 
 
     <title>BCAVMA</title>
-  </head>
+ </head> 
   <body>
     <!--Navbar-->
     <div id="nav-placeholder"></div>
@@ -27,16 +27,32 @@
     
     <!--Carousel-->
     <container>
-      <div class="parallax">
-        <h1>BCAVMA</h1>
-        <h2>Bergen County Academies Virtual Museum of Arts</h2>
+      <div id="carouselExampleIndicators" class="carousel slide ms-auto me-auto h-50" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="Starry Night.jpg" class="d-block w-100 h-100" style="width: 100%;">
+          </div>
+          <div class="carousel-item">
+            <img src="Scream.jpg" class="d-block w-100 h-100" style="width: 100%;">
+          </div>
+          <div class="carousel-item">
+            <img src="Picture.jpg" class="d-block w-100 h-100" style="width: 100%;">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-            <div style="height: 1000px; background-color:whitesmoke;">
-              <p>Welcome to the BCAVMA, your one stop shop for viewing the wonderful work of the AVPA academy in a simple and unique way. With the resurgence of COVID-19, Print Week, along with other events hosted by the Academy for Visual and Performing Arts may need to be canceled or rescheduled. 
-                Along with the risk of other conditions such as weather and generally busy schedules, having an alternative to display the wonderful artwork of the AVPA academy was imperative.</p>
-              </div>
-    </container>
-    
-    
+      </container>    
   </body>
 </html>
