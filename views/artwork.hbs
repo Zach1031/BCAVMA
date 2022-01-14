@@ -1,18 +1,18 @@
 <link href="/stylesheets/index.css" rel="stylesheet">
 <container>
     <div class="row">
-        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+        <div class="">
             {{#each artwork}}
             <div class="container">
                     <img src="{{art_source}}" class="image w-100 shadow-1-strong rounded mb-4" alt="">
+                        <a href="/artwork/{{art_id}}">
                         <div class="overlay">
                             <div class="text">{{art_title}}</div>
-                            <div class="description-text">{{art_description}}</div>
+                            <div class="description-text">{{art_creator}}</div>
                         </div>
-                    </img>    
+                        </a>
                     </div>
-                    {{/each}}
-
+            {{/each}}
         </div>
     </div>
 </container>

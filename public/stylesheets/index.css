@@ -75,18 +75,17 @@
 .overlay {
   position: absolute;
   top: 0;
-  height: 92%;
-  width: 86%;
+  height: 100%;
+  width: 100%;
   opacity: 0%;
   transition: .5s ease;
-  opacity:0;
-  color: white;
+  color: rgb(34, 40, 117);
   font-size: 20px;
   text-align: center;
 }
 
 .container:hover .overlay {
-  opacity: 50%;
+  opacity: 75%;
   box-shadow: 10px 10px 5px rgb(92, 91, 91);
 }
 
