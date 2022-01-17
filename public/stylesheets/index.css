@@ -47,11 +47,16 @@
   container p {
     font-size: 20px;
     font-weight: 300;
-    padding: 2.5em 2.5em 0;
+    padding: 0em 2em 0;
     line-height: 1.75em;
     font-family: 'Lato', sans-serif;
     color: #111433;
     
+  }
+
+  hr.rounded {
+    border-top: 8px solid #bbb;
+    border-radius: 5px;
   }
 
   div {
