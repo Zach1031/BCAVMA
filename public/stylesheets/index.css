@@ -1,0 +1,114 @@
+.carousel-item {
+    height: 500px
+  }
+
+  body, html {
+    height: 100%;
+  }
+  
+  .parallax {
+    /* The image used */
+    background-image: url('AVPAV.jpg');
+  
+    /* Full height */
+    height: 100%; 
+    width: 100%;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+  }
+
+  .parallax h1, .parallax h2{
+    font-family: 'Lato', sans-serif;
+    color: #fff;
+    text-shadow: 0 0 8px #000;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+
+  .parallax h1{
+    font-size: 100px;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+  }
+
+  .parallax h2{
+    font-size: 50px;
+    margin-right: -50%;
+    transform: translate(-50%, 100%)
+  }
+
+  container p {
+    font-size: 20px;
+    font-weight: 300;
+    padding: 0em 2em 0;
+    line-height: 1.75em;
+    font-family: 'Lato', sans-serif;
+    color: #111433;
+    
+  }
+
+  hr.rounded {
+    border-top: 8px solid #bbb;
+    border-radius: 5px;
+  }
+
+  div {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+  }
+
+
+
+
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0%;
+  transition: .5s ease;
+  color: rgb(34, 40, 117);
+  font-size: 20px;
+  text-align: center;
+}
+
+.container:hover .overlay {
+  opacity: 75%;
+  box-shadow: 10px 10px 5px rgb(92, 91, 91);
+}
+
+.container {
+  position: relative;
+  width: 50%;
+}
+
+
+.description-text{
+  color: rgb(65, 64, 64);
+  font-family: sans-serif;
+  text-align: center;
+  vertical-align: center;
+}
+
+.image {
+  display: block;
+  width: auto;
+  height: auto;
+}
