@@ -10,6 +10,7 @@ var artworkRouter = require('./routes/artwork');
 var aboutRouter = require('./routes/about');
 var creditsRouter = require('./routes/credits');
 var loginRouter = require('./routes/login');
+var launchRouter = require('./routes/loadUnity');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use('/artwork', artworkRouter);
 app.use('/about', aboutRouter);
 app.use('/credits', creditsRouter);
 app.use('/login', loginRouter);
+app.use('/loadUnity',launchRouter);
 
 
 
