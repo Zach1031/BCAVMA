@@ -10,11 +10,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/page/:page_number', function(req, res, next) {
-  let artwork_segment = data.slice(((req.params.page_number-1) * 4), ((req.params.page_number*4)-1));
-  //res.send(artwork_segment);
-  res.render('artwork_page', { title: 'BCAVMA', 
-                        layout: 'layout',
-                        artwork: artwork_segment});
+  if((req.params.page_number - 1) * 4 > (data.length)){
+    next();
+  }
+  else{
+    let artwork_segment = data.slice(((req.params.page_number-1) * 4), ((req.params.page_number*4)-1));
+    //res.send(artwork_segment);
+    res.render('artwork_page', { title: 'BCAVMA', 
+                          layout: 'layout',
+                          artwork: artwork_segment});
+  }
+  
   
 });
 
