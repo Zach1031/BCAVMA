@@ -11,6 +11,7 @@ var aboutRouter = require('./routes/about');
 var creditsRouter = require('./routes/credits');
 var loginRouter = require('./routes/login');
 var launchRouter = require('./routes/loadUnity');
+var submitRouter = require('./routes/submission')
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use('/about', aboutRouter);
 app.use('/credits', creditsRouter);
 app.use('/login', loginRouter);
 app.use('/loadUnity',launchRouter);
+app.use('/submission',submitRouter);
 
 
 
