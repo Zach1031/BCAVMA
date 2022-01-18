@@ -9,6 +9,15 @@ router.get('/', function(req, res, next) {
                         artwork: data});
 });
 
+router.get('/page/:page_number', function(req, res, next) {
+  let artwork_segment = data.slice(((req.params.page_number-1) * 4), ((req.params.page_number*4)-1));
+  //res.send(artwork_segment);
+  res.render('artwork_page', { title: 'BCAVMA', 
+                        layout: 'layout',
+                        artwork: artwork_segment});
+  
+});
+
 router.get('/:art_id', function(req, res, next) {
   let art_id = req.params.art_id;
 

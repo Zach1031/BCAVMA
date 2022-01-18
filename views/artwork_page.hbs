@@ -1,0 +1,22 @@
+<link href="/stylesheets/index.css" rel="stylesheet">
+<div class="row">
+            {{#each artwork}}
+            <div class="col-6">
+                <img src="{{art_source}}" class="image w-75 h-75 shadow-1-strong rounded mb-4" alt="">
+                    <a href="/artwork/{{art_id}}">
+                    <div class="overlay">
+                        <div class="text">{{art_title}}</div>
+                        <div class="description-text">{{art_creator}}</div>
+                    </div>
+                    </a>
+            </div>
+            {{/each}}
+            <div class="row">
+                <div class="container">
+                    <a href="/artwork/pages/1" class="col-2 btn btn-outline-dark">1</a>
+                    <a href="/artwork/pages/2" class="col-2 btn btn-outline-dark">2</a>
+                    <a href="/artwork/pages/3" class="col-2 btn btn-outline-dark">3</a>
+                    <a href="/artwork/pages/4" class="col-2 btn btn-outline-dark">4</a>
+                </div>
+            </div>
+</div>
