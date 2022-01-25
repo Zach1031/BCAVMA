@@ -10,15 +10,25 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/page/:page_number', function(req, res, next) {
-  if((req.params.page_number - 1) * 4 > (data.length)){
+  let page_number = req.params.page_number;
+  if((page_number - 1) * 4 > (data.length)){
     next();
+
   }
   else{
-    let artwork_segment = data.slice(((req.params.page_number-1) * 4), ((req.params.page_number*4)-1));
-    //res.send(artwork_segment);
+
+    let artwork_segment = data.slice(((page_number-1) * 4), ((page_number*4)-1));
+    if(page_number >= 3){
+      pages = {previous: (page_number - 1), first: (page_number - 1), second: (page_number), third: (page_number + 1), next: (page_number - 1)};
+    }
+    else{
+      pages = {previous: 1, first: 1, second: 2, third: 3, next: 2};
+    }
+    
     res.render('artwork_page', { title: 'BCAVMA', 
                           layout: 'layout',
-                          artwork: artwork_segment});
+                          artwork: artwork_segment,
+                          pages: pages});
   }
   
   
