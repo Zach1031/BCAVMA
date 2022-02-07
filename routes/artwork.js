@@ -6,6 +6,7 @@ var data = require('../dummy_data/data');
 router.get('/', function(req, res, next) {
   res.render('artwork', { title: 'BCAVMA', 
                         layout: 'layout',
+                        search: 'search',
                         artwork: data});
 });
 
@@ -18,6 +19,13 @@ router.get('/page/:page_number', function(req, res, next) {
   else{
 
     let artwork_segment = data.slice(((page_number-1) * 4), ((page_number*4)-1));
+
+    console.log(artwork_segment);
+    
+    for(let x in artwork_segmenet){
+      console.log("test");
+    }
+
     if(page_number >= 3){
       pages = {previous: (page_number - 1), first: (page_number - 1), second: (page_number), third: (page_number + 1), next: (page_number - 1)};
     }
@@ -47,6 +55,12 @@ router.get('/:art_id', function(req, res, next) {
   else {
     res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
   }
+});
+
+router.get('/search', function(req, res, next) {
+  let keyword = req.query.keyword;
+  res.send(keyword);
+  //search data base for results
 });
 
 module.exports = router;

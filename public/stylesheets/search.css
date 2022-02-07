@@ -1,0 +1,8 @@
+button {
+    all: unset;
+    cursor: pointer;
+    width: 60px;
+    height: 37px;
+    background-color: blanchedalmond;
+    text-align: center;
+  }
