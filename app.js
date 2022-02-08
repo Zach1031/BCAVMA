@@ -12,6 +12,7 @@ var creditsRouter = require('./routes/credits');
 var loginRouter = require('./routes/login');
 var launchRouter = require('./routes/loadUnity');
 var submitRouter = require('./routes/submission')
+var testRouter = require('./routes/test_search')
 
 var app = express();
 
@@ -33,7 +34,7 @@ app.use('/credits', creditsRouter);
 app.use('/login', loginRouter);
 app.use('/loadUnity',launchRouter);
 app.use('/submission',submitRouter);
-
+app.use('/test', testRouter)
 
 
 var hbs = require('hbs');
