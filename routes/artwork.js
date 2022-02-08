@@ -10,57 +10,57 @@ router.get('/', function(req, res, next) {
                         artwork: data});
 });
 
-router.get('/page/:page_number', function(req, res, next) {
-  let page_number = req.params.page_number;
-  if((page_number - 1) * 4 > (data.length)){
-    next();
+// router.get('/page/:page_number', function(req, res, next) {
+//   let page_number = req.params.page_number;
+//   if((page_number - 1) * 4 > (data.length)){
+//     next();
 
-  }
-  else{
+//   }
+//   else{
 
-    let artwork_segment = data.slice(((page_number-1) * 4), ((page_number*4)-1));
+//     let artwork_segment = data.slice(((page_number-1) * 4), ((page_number*4)-1));
 
-    console.log(artwork_segment);
+//     console.log(artwork_segment);
     
-    for(let x in artwork_segmenet){
-      console.log("test");
-    }
+//     for(let x in artwork_segmenet){
+//       console.log("test");
+//     }
 
-    if(page_number >= 3){
-      pages = {previous: (page_number - 1), first: (page_number - 1), second: (page_number), third: (page_number + 1), next: (page_number - 1)};
-    }
-    else{
-      pages = {previous: 1, first: 1, second: 2, third: 3, next: 2};
-    }
+//     if(page_number >= 3){
+//       pages = {previous: (page_number - 1), first: (page_number - 1), second: (page_number), third: (page_number + 1), next: (page_number - 1)};
+//     }
+//     else{
+//       pages = {previous: 1, first: 1, second: 2, third: 3, next: 2};
+//     }
     
-    res.render('artwork_page', { title: 'BCAVMA', 
-                          layout: 'layout',
-                          artwork: artwork_segment,
-                          pages: pages});
-  }
+//     res.render('artwork_page', { title: 'BCAVMA', 
+//                           layout: 'layout',
+//                           artwork: artwork_segment,
+//                           pages: pages});
+//   }
   
   
-});
+// });
 
-router.get('/:art_id', function(req, res, next) {
-  let art_id = req.params.art_id;
+// router.get('/:art_id', function(req, res, next) {
+//   let art_id = req.params.art_id;
 
-  // Find matching event in the data (a real database will be easier to query)
-  let art = data.find(function (art) { return art.art_id == art_id });
+//   // Find matching event in the data (a real database will be easier to query)
+//   let art = data.find(function (art) { return art.art_id == art_id });
 
 
-  if (art === undefined) {
-    next(); //pass along to other handlers (send 404)
-  }
-  else {
-    res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
-  }
-});
+//   if (art === undefined) {
+//     next(); //pass along to other handlers (send 404)
+//   }
+//   else {
+//     res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
+//   }
+// });
 
-router.get('/search', function(req, res, next) {
-  let keyword = req.query.keyword;
-  res.send(keyword);
-  //search data base for results
-});
+// router.get('/search', function(req, res, next) {
+//   let keyword = req.query.keyword;
+//   res.send(keyword);
+//   //search data base for results
+// });
 
 module.exports = router;
