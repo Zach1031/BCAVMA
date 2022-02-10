@@ -64,12 +64,6 @@ router.get('/', function(req, res, next) {
   
 });
 
-router.get('/test', function(req, res, next) {
-  let sort = req.query.sort; 
-  res.send(loadSorted(createArray(sort), sort));
-  //search data base for results
- });
-
 // router.get('/page/:page_number', function(req, res, next) {
 //   let page_number = req.params.page_number;
 //   if((page_number - 1) * 4 > (data.length)){
@@ -108,13 +102,13 @@ router.get('/test', function(req, res, next) {
 //   let art = data.find(function (art) { return art.art_id == art_id });
 
 
-//   if (art === undefined) {
-//     next(); 
-//   }
-//   else {
-//     res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
-//   }
-// });
+  if (art === undefined) {
+    next(); 
+  }
+  else {
+    res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
+  }
+//});
 
 // router.get('/search', function(req, res, next) {
 //   let keyword = req.query.keyword;
