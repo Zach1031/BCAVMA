@@ -1,3 +1,5 @@
+
+
 module.exports = [
     {
         art_title: "Starry Night",

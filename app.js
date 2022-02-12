@@ -3,6 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const { GoogleSpreadsheet } = require('google-spreadsheet');
+
+// File handling package
+const fs = require('fs');
+const RESPONSES_SHEET_ID = '1VEIONwFJ0TQzdLZX41bddhHmM1eNxbRyCiBP2KaYNZA';
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -12,9 +18,41 @@ var creditsRouter = require('./routes/credits');
 var loginRouter = require('./routes/login');
 var launchRouter = require('./routes/loadUnity');
 var submitRouter = require('./routes/submission')
-var testRouter = require('./routes/test_search')
+
 
 var app = express();
+
+const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID);
+// Credentials for the service account
+const CREDENTIALS = JSON.parse(fs.readFileSync('credentials.json'));
+
+const getRow = async (boolean) => {
+
+    // use service account creds
+    await doc.useServiceAccountAuth({
+        client_email: CREDENTIALS.client_email,
+        private_key: CREDENTIALS.private_key
+    });
+
+    // load the documents info
+    await doc.loadInfo();
+
+    let sheet = doc.sheetsByIndex[0];
+
+    // Get all the rows
+    let rows = await sheet.getRows();
+
+    for (let index = 0; index < rows.length; index++) {
+        const row = rows[index];
+        if(boolean == 'TRUE'){
+          console.log(row.ID);
+          console.log(row.Tags);
+
+        }
+
+    };
+};
+getRow('TRUE');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,7 +72,7 @@ app.use('/credits', creditsRouter);
 app.use('/login', loginRouter);
 app.use('/loadUnity',launchRouter);
 app.use('/submission',submitRouter);
-app.use('/test', testRouter)
+
 
 
 var hbs = require('hbs');
