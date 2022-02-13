@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const { GoogleSpreadsheet } = require('google-spreadsheet');
-
+var {google} = require('googleapis');
 // File handling package
 const fs = require('fs');
 const RESPONSES_SHEET_ID = '1VEIONwFJ0TQzdLZX41bddhHmM1eNxbRyCiBP2KaYNZA';
@@ -26,6 +26,11 @@ const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID);
 // Credentials for the service account
 const CREDENTIALS = JSON.parse(fs.readFileSync('credentials.json'));
 
+const getServerSide = async() => {
+  const auth = await google.auth.getClient({scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly']});
+  const sheets = google.sheets({ version: 'v4', auth });
+}
+
 const getRow = async (boolean) => {
 
     // use service account creds
@@ -41,14 +46,22 @@ const getRow = async (boolean) => {
 
     // Get all the rows
     let rows = await sheet.getRows();
-
     for (let index = 0; index < rows.length; index++) {
         const row = rows[index];
-        if(boolean == 'TRUE'){
-          console.log(row.ID);
-          console.log(row.Tags);
+  
+        // const x = Boolean(row.Valid);
+        // console.log(x);
+        if(row.Valid === "TRUE"){
 
+          console.log(row.Artwork_Name);
+          console.log(row.ID);
+          console.log(row.Timestamp);
+          console.log(row.Artist_Name);
+          console.log(row.Description);
+          console.log(row.Tags);
+          console.log(row.Upload_Artwork);
         }
+
 
     };
 };
