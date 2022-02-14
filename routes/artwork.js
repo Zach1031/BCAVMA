@@ -1,3 +1,4 @@
+const e = require('express');
 var express = require('express');
 var router = express.Router();
 var data = require('../dummy_data/data');
@@ -26,7 +27,7 @@ router.get('/', function(req, res, next) {
     if (art === undefined) {
       next(); 
     }
-    else {
+    else{
       res.render('artwork', { title: 'BCAVMA', layout: 'layout', search: 'search', artwork: {art}});
     }
   }
@@ -75,15 +76,15 @@ router.get('/', function(req, res, next) {
 // router.get('/:art_id', function(req, res, next) {
 //   let art_id = req.params.art_id;
 
-  let art = data.find(function (art) { return art.art_id == art_id });
+// let art = data.find(function (art) { return art.art_id == art_id });
 
 
-  if (art === undefined) {
-    next(); 
-  }
-  else {
-    res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
-  }
+//  if (art === undefined) {
+//    next(); 
+//  }
+//  else {
+//    res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
+//  }
 //});
 
 // router.get('/search', function(req, res, next) {
