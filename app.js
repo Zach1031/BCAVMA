@@ -22,50 +22,51 @@ var submitRouter = require('./routes/submission')
 
 var app = express();
 
-const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID);
-// Credentials for the service account
-const CREDENTIALS = JSON.parse(fs.readFileSync('credentials.json'));
-
-const getServerSide = async() => {
-  const auth = await google.auth.getClient({scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly']});
-  const sheets = google.sheets({ version: 'v4', auth });
-}
-
-const getRow = async () => {
-
-    // use service account creds
-    await doc.useServiceAccountAuth({
-        client_email: CREDENTIALS.client_email,
-        private_key: CREDENTIALS.private_key
-    });
-
-    // load the documents info
-    await doc.loadInfo();
-
-    let sheet = doc.sheetsByIndex[0];
-
-    // Get all the rows
-    let rows = await sheet.getRows();
-    for (let index = 0; index < rows.length; index++) {
-        const row = rows[index];
-
-        // const x = Boolean(row.Valid);
-        // console.log(x);
-        if(row.Valid === "TRUE"){
-
-          console.log(row.Artwork_Name);
-          console.log(row.ID);
-          console.log(row.Timestamp);
-          console.log(row.Artist_Name);
-          console.log(row.Description);
-          console.log(row.Tags);
-          console.log(row.Upload_Artwork);
-        }
-
-
-    };
-};
-getRow();
+// test logs for artwork requests
+// const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID);
+// // Credentials for the service account
+// const CREDENTIALS = JSON.parse(fs.readFileSync('credentials.json'));
+//
+// const getServerSide = async() => {
+//   const auth = await google.auth.getClient({scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly']});
+//   const sheets = google.sheets({ version: 'v4', auth });
+// }
+//
+// const getRow = async () => {
+//
+//     // use service account creds
+//     await doc.useServiceAccountAuth({
+//         client_email: CREDENTIALS.client_email,
+//         private_key: CREDENTIALS.private_key
+//     });
+//
+//     // load the documents info
+//     await doc.loadInfo();
+//
+//     let sheet = doc.sheetsByIndex[0];
+//
+//     // Get all the rows
+//     let rows = await sheet.getRows();
+//     for (let index = 0; index < rows.length; index++) {
+//         const row = rows[index];
+//
+//         // const x = Boolean(row.Valid);
+//         // console.log(x);
+//         if(row.Valid === "TRUE"){
+//
+//           console.log(row.Artwork_Name);
+//           console.log(row.ID);
+//           console.log(row.Timestamp);
+//           console.log(row.Artist_Name);
+//           console.log(row.Description);
+//           console.log(row.Tags);
+//           console.log(row.Upload_Artwork);
+//         }
+//
+//
+//     };
+// };
+// getRow();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
