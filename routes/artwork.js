@@ -1,4 +1,5 @@
 var express = require('express');
+var {google} = require('googleapis')
 var router = express.Router();
 var data = require('../dummy_data/data');
 
@@ -22,6 +23,7 @@ function createArray(sortBy){
   return array.sort();
 }
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   let id = req.query.id;
@@ -36,7 +38,7 @@ router.get('/', function(req, res, next) {
 
 
     if (art === undefined) {
-      next(); 
+      next();
     }
     else {
       res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
@@ -52,7 +54,7 @@ router.get('/', function(req, res, next) {
 
 
     if (art === undefined) {
-      next(); 
+      next();
     }
     else {
       res.render('artwork', { title: 'BCAVMA', layout: 'layout', search: 'search', artwork: {art}});
@@ -63,21 +65,23 @@ router.get('/', function(req, res, next) {
     if(!(sort == null)){
       let art = loadSorted(createArray(sort), sort);
 
-      res.render('artwork', { title: 'BCAVMA', 
+      res.render('artwork', { title: 'BCAVMA',
          layout: 'layout',
          search: 'search',
          artwork: art});
     }
 
     else {
-    res.render('artwork', { title: 'BCAVMA', 
-    layout: 'layout',
-    search: 'search',
-    artwork: data});
+
+      res.render('artwork', { title: 'BCAVMA',
+        layout: 'layout',
+        search: 'search',
+        artwork: data});
     }
   }
 
-  
+
 });
+
 
 module.exports = router;
