@@ -31,7 +31,7 @@ const getServerSide = async() => {
   const sheets = google.sheets({ version: 'v4', auth });
 }
 
-const getRow = async (boolean) => {
+const getRow = async () => {
 
     // use service account creds
     await doc.useServiceAccountAuth({
@@ -48,7 +48,7 @@ const getRow = async (boolean) => {
     let rows = await sheet.getRows();
     for (let index = 0; index < rows.length; index++) {
         const row = rows[index];
-  
+
         // const x = Boolean(row.Valid);
         // console.log(x);
         if(row.Valid === "TRUE"){
@@ -65,7 +65,7 @@ const getRow = async (boolean) => {
 
     };
 };
-getRow('TRUE');
+getRow();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
