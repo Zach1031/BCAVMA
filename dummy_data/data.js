@@ -43,7 +43,7 @@ const getRow = async () => {
           item ["art_description"] = row.Description;;
           // item ["art_source"] = row.Upload_Artwork;
           //test other source of art
-          item ["art_source"] = "https://cdn.britannica.com/51/194651-050-747F0C18/Interior-National-Gallery-of-Art-Washington-DC.jpg";
+          item ["art_source"] = "https://cdn.britannica.com/51/194651-050-747F0C1f8/Interior-National-Gallery-of-Art-Washington-DC.jpg";
           item ["art_id"] = row.ID;
           module.exports.push(item)
 
