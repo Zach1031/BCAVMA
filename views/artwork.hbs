@@ -1,5 +1,25 @@
 <link href="/stylesheets/index.css" rel="stylesheet">
 {{>search}}
+<script>
+    if(!(document.getElementById("titleAZ") == null)){
+        alert('hello!');
+    }
+
+    function checkValues() {
+        var searchBox = document.getElementById("query");
+        console.log(searchBox.value); 
+    }
+</script>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="sortMenu" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a id="titleAZ" class="dropdown-item" href="/artwork?sort=art_title">Title A-Z</a></li>
+    <li><a class="dropdown-item" href="/artwork?sort=art_creator">Creator A-Z</a></li>
+    <li><a class="dropdown-item" href="#">Newest</a></li>
+  </ul>
+</div>
             {{#each artwork}}
             <div class="container">
                     <img src="{{art_source}}" class="image w-100 shadow-1-strong rounded mb-4" alt="">
