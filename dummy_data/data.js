@@ -43,9 +43,13 @@ const getRow = async () => {
           item ["art_description"] = row.Description;;
           // item ["art_source"] = row.Upload_Artwork;
           //test other source of art
-          item ["art_source"] = "https://cdn.britannica.com/51/194651-050-747F0C1f8/Interior-National-Gallery-of-Art-Washington-DC.jpg";
+          artsourcelink = row.Upload_Artwork;
+          baseUrl = "https://drive.google.com/uc?id";
+          imageId = artsourcelink.substr(32, 34); //this will extract the image ID from the shared image link
+          url = baseUrl.concat(imageId);
+          item ["art_source"] = url;
           item ["art_id"] = row.ID;
-          module.exports.push(item)
+          module.exports.push(item);
 
         }
 
