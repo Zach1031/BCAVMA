@@ -1,3 +1,4 @@
+const e = require('express');
 var express = require('express');
 var {google} = require('googleapis')
 var router = express.Router();
@@ -56,7 +57,7 @@ router.get('/', function(req, res, next) {
     if (art === undefined) {
       next();
     }
-    else {
+    else{
       res.render('artwork', { title: 'BCAVMA', layout: 'layout', search: 'search', artwork: {art}});
     }
   }

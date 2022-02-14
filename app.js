@@ -19,7 +19,6 @@ var loginRouter = require('./routes/login');
 var launchRouter = require('./routes/loadUnity');
 var submitRouter = require('./routes/submission')
 
-
 var app = express();
 
 // test logs for artwork requests
@@ -86,7 +85,6 @@ app.use('/credits', creditsRouter);
 app.use('/login', loginRouter);
 app.use('/loadUnity',launchRouter);
 app.use('/submission',submitRouter);
-
 
 
 var hbs = require('hbs');
