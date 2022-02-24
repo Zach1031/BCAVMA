@@ -37,7 +37,7 @@ const getRow = async () => {
         if(row.Valid === "TRUE"){
           jsonObj = [];
 
-          item = {}
+          item = {};
           item ["art_title"] = row.Artwork_Name;
           item ["art_creator"] = row.Artist_Name;
           item ["art_description"] = row.Description;;
