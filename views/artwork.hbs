@@ -1,6 +1,8 @@
 <link href="/stylesheets/index.css" rel="stylesheet">
 {{>search}}
 <script>
+    
+
     if(!(document.getElementById("titleAZ") == null)){
         alert('hello!');
     }
@@ -10,9 +12,12 @@
         console.log(searchBox.value); 
     }
 </script>
+
+
+
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="sortMenu" data-bs-toggle="dropdown" aria-expanded="false">
-    Sort
+    Sort by
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     <li><a id="titleAZ" class="dropdown-item" href="/artwork?sort=art_title">Title A-Z</a></li>

@@ -31,6 +31,8 @@ router.get('/', function(req, res, next) {
   let search = req.query.search;
   let sort = req.query.sort;
 
+  // res.send(data);
+
   if(!(id == null)){
     if((!(search == null)) || (!(sort == null))){
       next();
