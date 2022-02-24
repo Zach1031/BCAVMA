@@ -1,4 +1,3 @@
 node_modules/*
 /routes/test_search.js
 /views/test.hbs
-credentials.json
