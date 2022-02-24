@@ -1,4 +1,3 @@
-
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 var {google} = require('googleapis');
 // File handling package
@@ -37,7 +36,7 @@ const getRow = async () => {
         if(row.Valid === "TRUE"){
           jsonObj = [];
 
-          item = {}
+          item = {};
           item ["art_title"] = row.Artwork_Name;
           item ["art_creator"] = row.Artist_Name;
           item ["art_description"] = row.Description;;
@@ -49,6 +48,7 @@ const getRow = async () => {
           url = baseUrl.concat(imageId);
           item ["art_source"] = url;
           item ["art_id"] = row.ID;
+          item ["art_type"] = row.Media_Format;
           module.exports.push(item);
 
         }
