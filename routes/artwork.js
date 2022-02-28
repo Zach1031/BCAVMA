@@ -1,8 +1,15 @@
 const e = require('express');
 var express = require('express');
-var {google, deploymentmanager_alpha} = require('googleapis')
+var {google} = require('googleapis')
 var router = express.Router();
 var data = require('../dummy_data/data');
+
+//var search_library = require('js-search');
+// var search_library = new JsSearch.Search();
+// search_library.addIndex('art_title');
+// search_library.addIndex('art_creator');
+// search_library.addIndex('art_type');
+//search.addIndex('art_tags');
 
 function loadSorted(array, sortBy){
   var sort = [array.length];
@@ -33,17 +40,16 @@ router.get('/', async function(req, res, next) {
   let artwork = await data.getRow();
 
   console.log(artwork);
-
   if(!(id == null)){
     if((!(search == null)) || (!(sort == null))){
       next();
-    }
+    }      
     let art = artwork.find(function (art) { return art.art_id == id });
-
 
     if (art === undefined) {
       next();
     }
+
     else {
       res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
     }
@@ -56,36 +62,23 @@ router.get('/', async function(req, res, next) {
       art = loadSorted(createArray(sort), sort);
     }
 
-
-    if (art === undefined) {
-      next();
-    }
-    else{
-      res.render('artwork', { title: 'BCAVMA', layout: 'layout', search: 'search', artwork: {art}});
-    }
+    res.render('artwork', { title: 'BCAVMA',
+          layout: 'layout',
+          search: 'search',
+          artwork: art});
   }
 
-  else {
-    if(!(sort == null)){
-      let art = loadSorted(createArray(sort), sort);
-
-      res.render('artwork', { title: 'BCAVMA',
-         layout: 'layout',
-         search: 'search',
-         artwork: art});
-    }
-
-    else {
-
-      res.render('artwork', { title: 'BCAVMA',
-        layout: 'layout',
-        search: 'search',
-        artwork: artwork});
-    }
+  else{
+    res.render('artwork', { title: 'BCAVMA',
+          layout: 'layout',
+          search: 'search',
+          artwork: artwork});
   }
 
+    
 
-});
+
+  });
 
 
 module.exports = router;
