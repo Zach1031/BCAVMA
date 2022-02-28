@@ -14,7 +14,8 @@ const getServerSide = async() => {
   const sheets = google.sheets({ version: 'v4', auth });
 }
 
-const getRow = async () => {
+module.exports.getRow = async () => {
+  var jsonObj = [];
 
     // use service account creds
     await doc.useServiceAccountAuth({
@@ -34,7 +35,6 @@ const getRow = async () => {
 
 
         if(row.Valid === "TRUE"){
-          jsonObj = [];
 
           item = {};
           item ["art_title"] = row.Artwork_Name;
@@ -49,15 +49,14 @@ const getRow = async () => {
           item ["art_source"] = url;
           item ["art_id"] = row.ID;
           item ["art_type"] = row.Media_Format;
-          module.exports.push(item);
+          jsonObj.push(item);
 
         }
 
 
     };
+    return jsonObj;
 };
-getRow();
-module.exports = [
 
     // {
     //     art_title: "Starry Night",
@@ -82,4 +81,3 @@ module.exports = [
     //     art_source: "/images/Picture.jpg",
     //     art_id: "3456"
     // }
-]
