@@ -2,6 +2,7 @@ const { GoogleSpreadsheet } = require('google-spreadsheet');
 var {google} = require('googleapis');
 // File handling package
 const fs = require('fs');
+const { INSPECT_MAX_BYTES } = require('buffer');
 const RESPONSES_SHEET_ID = '1VEIONwFJ0TQzdLZX41bddhHmM1eNxbRyCiBP2KaYNZA';
 
 
@@ -14,7 +15,15 @@ const getServerSide = async() => {
   const sheets = google.sheets({ version: 'v4', auth });
 }
 
-const getRow = async () => {
+module.exports.getRow = async (pageNumber) => {
+  var jsonObj = [];
+  var pageLength = 8;
+
+  var start = pageLength * (pageNumber - 1);
+  var end = (pageLength * pageNumber) - 1;
+  console.log(start);
+  console.log(end);
+
 
     // use service account creds
     await doc.useServiceAccountAuth({
@@ -28,37 +37,44 @@ const getRow = async () => {
     let sheet = doc.sheetsByIndex[0];
 
     // Get all the rows
-    let rows = await sheet.getRows();
+    let rows = await sheet.getRows({offset: start, limit: pageLength});
+    let passed = 0;
+    //console.log(rows)
     for (let index = 0; index < rows.length; index++) {
+        //const row = rows[index]._rawData;
         const row = rows[index];
+        console.log(row);
+        console.log(row.Valid);
+
 
 
         if(row.Valid === "TRUE"){
-          jsonObj = [];
+          // if (passed >= start && passed <= end) {
+            item = {};
+            item ["art_title"] = row.Artwork_Name;
+            item ["art_creator"] = row.Artist_Name;
+            item ["art_description"] = row.Description;;
+            // item ["art_source"] = row.Upload_Artwork;
+            //test other source of art
+            artsourcelink = row.Upload_Artwork;
+            baseUrl = "https://drive.google.com/uc?id";
+            imageId = artsourcelink.substr(32, 34); //this will extract the image ID from the shared image link
+            url = baseUrl.concat(imageId);
+            item ["art_source"] = url;
+            item ["art_id"] = row.ID;
+            item ["art_type"] = row.Media_Format;
+            console.log(item);
+            jsonObj.push(item);
+          // }
 
-          item = {};
-          item ["art_title"] = row.Artwork_Name;
-          item ["art_creator"] = row.Artist_Name;
-          item ["art_description"] = row.Description;;
-          // item ["art_source"] = row.Upload_Artwork;
-          //test other source of art
-          artsourcelink = row.Upload_Artwork;
-          baseUrl = "https://drive.google.com/uc?id";
-          imageId = artsourcelink.substr(32, 34); //this will extract the image ID from the shared image link
-          url = baseUrl.concat(imageId);
-          item ["art_source"] = url;
-          item ["art_id"] = row.ID;
-          item ["art_type"] = row.Media_Format;
-          //item ["art_tags"] = row.
-          module.exports.push(item);
-
+          // passed++;
+        
         }
 
 
     };
+    return jsonObj;
 };
-getRow();
-module.exports = [
 
     // {
     //     art_title: "Starry Night",
@@ -84,4 +100,3 @@ module.exports = [
     //     art_source: "/images/Picture.jpg",
     //     art_id: "3456"
     // }
-]
