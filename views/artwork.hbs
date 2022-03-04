@@ -1,17 +1,6 @@
 <link href="/stylesheets/index.css" rel="stylesheet">
 {{>search}}
-<script>
-    
 
-    if(!(document.getElementById("titleAZ") == null)){
-        alert('hello!');
-    }
-
-    function checkValues() {
-        var searchBox = document.getElementById("query");
-        console.log(searchBox.value); 
-    }
-</script>
 
 
 
@@ -30,13 +19,21 @@
             <!--- replace img with embed or iframe and change css (deals with all file types) || add conditional to do either img or video player --->
             <div class="container">
                     <img src="{{art_source}}" class="img-fluid w-100 shadow-1-strong rounded mb-4">
-                        <a href="/artwork?id={{art_id}}">
+                        <a href="/artwork/{{page_number}}?id={{art_id}}">
                         <div class="overlay">
                             <div class="text">{{art_title}}</div>
                         </div>
                         </a>
             </div>
             {{/each}}
+    <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="/artwork/{{previous}}">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="{{page_number}}">{{page_number}}</a></li>
+    <li class="page-item"><a class="page-link" href="{{next}}">{{next}}</a></li>
+    <li class="page-item"><a class="page-link" href="/artwork/{{next}}">Next</a></li>
+  </ul>
+</nav>
    <div class="container col-10 text-center">
             <hr>
             <div class="row">
@@ -46,4 +43,16 @@
                 <a href="https://forms.gle/HiSJLGoSN4VsTdLr8" class="btn btn-outline-dark" target="_blank">Submit</a>
             </div>
             <hr>
-        </div>
+    </div>
+<script>
+    
+
+    if(!(document.getElementById("titleAZ") == null)){
+        alert('hello!');
+    }
+
+    function checkValues() {
+        var searchBox = document.getElementById("query");
+        console.log(searchBox.value); 
+    }
+</script>

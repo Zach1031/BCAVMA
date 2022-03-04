@@ -15,14 +15,8 @@ const getServerSide = async() => {
   const sheets = google.sheets({ version: 'v4', auth });
 }
 
-module.exports.getRow = async (pageNumber) => {
-  var jsonObj = [];
-  var pageLength = 8;
-
-  var start = pageLength * (pageNumber - 1);
-  var end = (pageLength * pageNumber) - 1;
-  console.log(start);
-  console.log(end);
+module.exports.getRow = async (data) => {
+  
 
 
     // use service account creds
@@ -37,43 +31,81 @@ module.exports.getRow = async (pageNumber) => {
     let sheet = doc.sheetsByIndex[0];
 
     // Get all the rows
-    let rows = await sheet.getRows({offset: start, limit: pageLength});
-    let passed = 0;
-    //console.log(rows)
-    for (let index = 0; index < rows.length; index++) {
-        //const row = rows[index]._rawData;
-        const row = rows[index];
-        console.log(row);
-        console.log(row.Valid);
+
+    if(data.page_number){
+      let pageNumber = data.page_number;
+      var jsonObj = [];
+      var pageLength = 8;
+
+      var start = pageLength * (pageNumber - 1);
+      var end = (pageLength * pageNumber) - 1;
+      console.log(start);
+      console.log(end);
+    
+      let rows = await sheet.getRows({offset: start, limit: pageLength});
+      let passed = 0;
+      //console.log(rows)
+      for (let index = 0; index < rows.length; index++) {
+          //const row = rows[index]._rawData;
+          const row = rows[index];
+          console.log(row);
+          console.log(row.Valid);
 
 
 
-        if(row.Valid === "TRUE"){
-          // if (passed >= start && passed <= end) {
-            item = {};
-            item ["art_title"] = row.Artwork_Name;
-            item ["art_creator"] = row.Artist_Name;
-            item ["art_description"] = row.Description;;
-            // item ["art_source"] = row.Upload_Artwork;
-            //test other source of art
-            artsourcelink = row.Upload_Artwork;
-            baseUrl = "https://drive.google.com/uc?id";
-            imageId = artsourcelink.substr(32, 34); //this will extract the image ID from the shared image link
-            url = baseUrl.concat(imageId);
-            item ["art_source"] = url;
-            item ["art_id"] = row.ID;
-            item ["art_type"] = row.Media_Format;
-            console.log(item);
-            jsonObj.push(item);
-          // }
+          if(row.Valid === "TRUE"){
+            // if (passed >= start && passed <= end) {
+              item = {};
+              item ["art_title"] = row.Artwork_Name;
+              item ["art_creator"] = row.Artist_Name;
+              item ["art_description"] = row.Description;;
+              // item ["art_source"] = row.Upload_Artwork;
+              //test other source of art
+              artsourcelink = row.Upload_Artwork;
+              baseUrl = "https://drive.google.com/uc?id";
+              imageId = artsourcelink.substr(32, 34); //this will extract the image ID from the shared image link
+              url = baseUrl.concat(imageId);
+              item ["art_source"] = url;
+              item ["art_id"] = row.ID;
+              item ["art_type"] = row.Media_Format;
+              item ["row_number"] = row._rowNumber;
+              console.log(item);
+              jsonObj.push(item);
+            // }
 
-          // passed++;
-        
-        }
+            // passed++;
+          
+          }
 
 
-    };
-    return jsonObj;
+      };
+      return jsonObj;
+    }
+
+    else if (data.row){
+      row = sheet.getRows(data.row)[0];
+
+      item = {};
+              item ["art_title"] = row.Artwork_Name;
+              item ["art_creator"] = row.Artist_Name;
+              item ["art_description"] = row.Description;;
+              // item ["art_source"] = row.Upload_Artwork;
+              //test other source of art
+              artsourcelink = row.Upload_Artwork;
+              baseUrl = "https://drive.google.com/uc?id";
+              imageId = artsourcelink.substr(32, 34); //this will extract the image ID from the shared image link
+              url = baseUrl.concat(imageId);
+              item ["art_source"] = url;
+              item ["art_id"] = row.ID;
+              item ["art_type"] = row.Media_Format;
+              item ["row_number"] = row._rowNumber;
+      return item;
+
+    }
+};
+
+module.exports.getArtwork = async (row_number) => {
+
 };
 
     // {
