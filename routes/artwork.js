@@ -45,19 +45,15 @@ router.get('/:page_number', async function(req, res, next) {
 
   console.log(artwork);
   if(!(id == null)){
-    if((!(search == null)) || (!(sort == null))){
-      next();
-    }
-    let test_artwork = await data.getRow({row: }); 
-    let art = artwork.find(function (art) { return art.art_id == id });
+    
 
-    if (art === undefined) {
-      next();
-    }
+    // if (art === -1) {
+    //   next();
+    // }
 
-    else {
-      res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
-    }
+    // else {
+    //   res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
+    // }
   }
 
   else if(!(search == null)){
@@ -88,7 +84,31 @@ router.get('/:page_number', async function(req, res, next) {
   });
 
   router.get('/', async function(req, res, next) {
-    res.redirect('/artwork/1')}
+    let id = req.query.id;
+    let search = req.query.search;
+    let sort = req.query.sort;
+
+    if(id){
+      if((!(search == null)) || (!(sort == null))){
+        next();
+      }
+  
+      console.log('here');
+      let art = await data.getRow({id: id}); 
+      //let art = artwork.find(function (art) { return art.art_id == id });
+
+      console.log(art);
+  
+      if(art) {
+        console.log(art);
+        res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });}
+      
+      else{next();}
+    }
+
+    else{
+      res.redirect('/artwork/1')}
+    }
     );
 
 

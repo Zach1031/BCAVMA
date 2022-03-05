@@ -82,10 +82,17 @@ module.exports.getRow = async (data) => {
       return jsonObj;
     }
 
-    else if (data.row){
-      row = sheet.getRows(data.row)[0];
+    else if (data.id){
+      let rows = await sheet.getRows({offset: start, limit: pageLength});
+      //console.log(rows)
+      for (let index = 0; index < rows.length; index++) {
+          //const row = rows[index]._rawData;
+          const row = rows[index];
 
-      item = {};
+
+
+          if(row.Valid === "TRUE" && row.ID == data.id){
+            item = {};
               item ["art_title"] = row.Artwork_Name;
               item ["art_creator"] = row.Artist_Name;
               item ["art_description"] = row.Description;;
@@ -99,12 +106,20 @@ module.exports.getRow = async (data) => {
               item ["art_id"] = row.ID;
               item ["art_type"] = row.Media_Format;
               item ["row_number"] = row._rowNumber;
-      return item;
+              console.log(item);
+              return item;
+          }
 
+          return null;
+
+
+      };
     }
 };
 
-module.exports.getArtwork = async (row_number) => {
+module.exports.getArtwork = async (id) => {
+
+  
 
 };
 
