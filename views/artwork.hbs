@@ -9,8 +9,8 @@
     Sort by
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a id="titleAZ" class="dropdown-item" href="/artwork?sort=art_title">Title A-Z</a></li>
-    <li><a class="dropdown-item" href="/artwork?sort=art_creator">Creator A-Z</a></li>
+    <li><a id="titleAZ" class="dropdown-item" href="{{page_number}}?sort=art_title">Title A-Z</a></li>
+    <li><a class="dropdown-item" href="{{page_number}}?sort=art_creator">Creator A-Z</a></li>
     <li><a class="dropdown-item" href="#">Newest</a></li>
   </ul>
 </div>
@@ -27,13 +27,15 @@
             </div>
             {{/each}}
     <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="/artwork/{{previous}}">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="{{page_number}}">{{page_number}}</a></li>
-    <li class="page-item"><a class="page-link" href="{{next}}">{{next}}</a></li>
-    <li class="page-item"><a class="page-link" href="/artwork/{{next}}">Next</a></li>
-  </ul>
-</nav>
+        <div class="row">
+            <ul class="pagination col-3 justify-content-middle">
+                <li class="page-item"><a class="page-link" href="{{previous}}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{{page_number}}">{{page_number}}</a></li>
+                <li class="page-item"><a class="page-link" href="{{next}}">{{next}}</a></li>
+                <li class="page-item"><a class="page-link" href="{{next}}">Next</a></li>
+            </ul>
+        </div>
+    </nav>
    <div class="container col-10 text-center">
             <hr>
             <div class="row">
