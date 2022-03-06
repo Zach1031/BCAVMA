@@ -95,12 +95,12 @@ router.get('/:page_number', async function(req, res, next) {
 
       console.log('here');
       console.log(id);
-      // let art2 = await data.getRow({id : 'sleepover'});
-      // console.log(art2);
+      // let art2 = await data.getRow();
+      // // console.log(art2);
       let art = await data.getRow({id: id});
       //let art = artwork.find(function (art) { return art.art_id == id });
 
-      console.log(art);
+      // console.log(art);
 
       if(art) {
         // console.log(art);

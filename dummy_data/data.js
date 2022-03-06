@@ -34,6 +34,7 @@ module.exports.getRow = async (data) => {
 
     if(data.page_number){
       let pageNumber = data.page_number;
+      // console.log(pageNumber);
       var jsonObj = [];
       var pageLength = 8;
 
@@ -84,15 +85,26 @@ module.exports.getRow = async (data) => {
 
     else if (data.id){
       let rows = await sheet.getRows({offset: start, limit: pageLength});
-      //console.log(rows)
+      // console.log(rows)
+      // console.log(rows[1]);
+
       for (let index = 0; index < rows.length; index++) {
           //const row = rows[index]._rawData;
-          const row = rows[index];
+          var row = rows[index];
+
+
+
 
 
 
           if(row.Valid === "TRUE" && row.ID == data.id){
-            item = {};
+              // if(row.ID == "sleepover"){
+              //   console.log(row);
+              // }
+              // else{
+              //   console.log(row.ID)l
+              // }
+              item = {};
               item ["art_title"] = row.Artwork_Name;
               item ["art_creator"] = row.Artist_Name;
               item ["art_description"] = row.Description;;
@@ -110,10 +122,11 @@ module.exports.getRow = async (data) => {
               return item;
           }
 
-          return null;
-
-
       };
+      console.log("null "+ data.id + " and " + row.ID);
+      console.log(index);
+      return null;
+
     }
 };
 
