@@ -44,25 +44,40 @@ router.get('/:page_number', async function(req, res, next) {
   // console.log(artwork);
   //
   // console.log(artwork);
-  if(!(id == null)){
 
-
-    // if (art === -1) {
-    //   next();
-    // }
-
-    // else {
-    //   res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });
-    // }
-  }
-
-  else if(!(search == null)){
+  if(search){
     let art = artwork.find(function (art) { return art.art_id == search });
 
     if(!(sort == null)){
       art = loadSorted(createArray(sort), sort);
     }
 
+    res.render('artwork', { title: 'BCAVMA',
+          layout: 'layout',
+          search: 'search',
+          artwork: art,
+          previous: parseInt(page_number)-1,
+          next: parseInt(page_number)+1,
+          page_number: page_number});
+  }
+
+  else if (sort){
+    console.log(artwork);
+    console.log("----------------")
+    let art = "";
+    if(sort == "art_title"){
+      art = artwork.sort(function (a, b) {
+        return a.art_title.localeCompare(b.art_title);
+      });
+    }
+
+    else if(sort == "art_creator"){
+      art = artwork.sort(function (a, b) {
+        return a.art_creator.localeCompare(b.art_creator);
+      });
+    }
+
+    console.log(art);
     res.render('artwork', { title: 'BCAVMA',
           layout: 'layout',
           search: 'search',
