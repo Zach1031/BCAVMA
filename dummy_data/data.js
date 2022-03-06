@@ -16,7 +16,7 @@ const getServerSide = async() => {
 }
 
 module.exports.getRow = async (data) => {
-  
+
 
 
     // use service account creds
@@ -41,15 +41,15 @@ module.exports.getRow = async (data) => {
       var end = (pageLength * pageNumber) - 1;
       console.log(start);
       console.log(end);
-    
+
       let rows = await sheet.getRows({offset: start, limit: pageLength});
       let passed = 0;
       //console.log(rows)
       for (let index = 0; index < rows.length; index++) {
           //const row = rows[index]._rawData;
           const row = rows[index];
-          console.log(row);
-          console.log(row.Valid);
+          // console.log(row);
+          // console.log(row.Valid);
 
 
 
@@ -69,12 +69,12 @@ module.exports.getRow = async (data) => {
               item ["art_id"] = row.ID;
               item ["art_type"] = row.Media_Format;
               item ["row_number"] = row._rowNumber;
-              console.log(item);
+              // console.log(item);
               jsonObj.push(item);
             // }
 
             // passed++;
-          
+
           }
 
 
@@ -106,7 +106,7 @@ module.exports.getRow = async (data) => {
               item ["art_id"] = row.ID;
               item ["art_type"] = row.Media_Format;
               item ["row_number"] = row._rowNumber;
-              console.log(item);
+              // console.log(item);
               return item;
           }
 
@@ -119,7 +119,7 @@ module.exports.getRow = async (data) => {
 
 module.exports.getArtwork = async (id) => {
 
-  
+
 
 };
 

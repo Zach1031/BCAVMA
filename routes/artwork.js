@@ -41,11 +41,11 @@ router.get('/:page_number', async function(req, res, next) {
 
   let artwork = await data.getRow({page_number: page_number});
 
-  console.log(artwork);
-
-  console.log(artwork);
+  // console.log(artwork);
+  //
+  // console.log(artwork);
   if(!(id == null)){
-    
+
 
     // if (art === -1) {
     //   next();
@@ -92,17 +92,20 @@ router.get('/:page_number', async function(req, res, next) {
       if((!(search == null)) || (!(sort == null))){
         next();
       }
-  
+
       console.log('here');
-      let art = await data.getRow({id: id}); 
+      console.log(id);
+      // let art2 = await data.getRow({id : 'sleepover'});
+      // console.log(art2);
+      let art = await data.getRow({id: id});
       //let art = artwork.find(function (art) { return art.art_id == id });
 
       console.log(art);
-  
+
       if(art) {
-        console.log(art);
+        // console.log(art);
         res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });}
-      
+
       else{next();}
     }
 
@@ -112,7 +115,7 @@ router.get('/:page_number', async function(req, res, next) {
     );
 
 
-  
+
 
 
 module.exports = router;
