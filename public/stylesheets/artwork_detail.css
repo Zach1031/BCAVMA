@@ -5,6 +5,13 @@
     font-size: 25pt;
     font-family: monospace;
 }
+.tag-text{
+  display: inline-block;
+  text-align: center;
+  color: blue;
+  font-size: 20pt;
+  font-family: monospace;
+}
 
 .head-text{
     display: inline-block;

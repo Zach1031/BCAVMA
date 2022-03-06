@@ -69,6 +69,7 @@ module.exports.getRow = async (data) => {
               item ["art_source"] = url;
               item ["art_id"] = row.ID;
               item ["art_type"] = row.Media_Format;
+              item ["art_tags"] = row.Tags;
               item ["row_number"] = row._rowNumber;
               // console.log(item);
               jsonObj.push(item);
@@ -117,8 +118,10 @@ module.exports.getRow = async (data) => {
               item ["art_source"] = url;
               item ["art_id"] = row.ID;
               item ["art_type"] = row.Media_Format;
+              item ["art_tags"] = row.Tags;
               item ["row_number"] = row._rowNumber;
-              // console.log(item);
+
+              console.log(item);
               return item;
           }
 
