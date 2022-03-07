@@ -1,8 +1,27 @@
 button {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
     all: unset;
     cursor: pointer;
     width: 60px;
     height: 37px;
-    background-color: blanchedalmond;
+    background-color: white;
+    color: black;
+    border: 2px solid #008CBA;
     text-align: center;
+    opacity: 90%;
+    transition: .5s ease
+  }
+  button:hover{
+    background-color: #007cba;
+    color: white;
+    opacity: 1;
+  }
+  input {
+    width: 94%;
+    height: 40px;
+    border: 2px solid #008CBA;
   }

@@ -1,4 +1,5 @@
 <link href="/stylesheets/index.css" rel="stylesheet">
+<link href="/stylesheets/artwork.css" rel="stylesheet">
 {{>search}}
 
 
@@ -15,7 +16,7 @@
   </ul>
 </div>
             {{#each artwork}}
-        
+
             <!--- replace img with embed or iframe and change css (deals with all file types) || add conditional to do either img or video player --->
             <div class="container">
                     <img src="{{art_source}}" class="img-fluid w-100 shadow-1-strong rounded mb-4">
@@ -28,10 +29,10 @@
             {{/each}}
     <nav aria-label="Page navigation example">
         <div class="row">
-            <ul class="pagination col-3 justify-content-middle">
+            <ul class="pagination row-md-3">
                 <li class="page-item"><a class="page-link" href="{{previous}}">Previous</a></li>
                 <li class="page-item"><a class="page-link" href="{{page_number}}">{{page_number}}</a></li>
-                <li class="page-item"><a class="page-link" href="{{next}}">{{next}}</a></li>
+                <!-- <li class="page-item"><a class="page-link" href="{{next}}">{{next}}</a></li> -->
                 <li class="page-item"><a class="page-link" href="{{next}}">Next</a></li>
             </ul>
         </div>
