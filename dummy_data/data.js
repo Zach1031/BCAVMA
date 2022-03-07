@@ -30,8 +30,46 @@ module.exports.getRow = async (data) => {
 
     let sheet = doc.sheetsByIndex[0];
 
-    // Get all the rows
+    if(data == null){
+      let rows = await sheet.getRows();
+      // console.log(rows)
+      // console.log(rows[1]);
+      let jsonObj = [];
 
+      for (let index = 0; index < rows.length; index++) {
+
+          var row = rows[index];
+          if(row.Valid === "TRUE"){
+            // if (passed >= start && passed <= end) {
+              item = {};
+              item ["art_title"] = row.Artwork_Name;
+              item ["art_creator"] = row.Artist_Name;
+              item ["art_description"] = row.Description;;
+              // item ["art_source"] = row.Upload_Artwork;
+              //test other source of art
+              artsourcelink = row.Upload_Artwork;
+              baseUrl = "https://drive.google.com/uc?id";
+              imageId = artsourcelink.substr(32, 34); //this will extract the image ID from the shared image link
+              url = baseUrl.concat(imageId);
+              item ["art_source"] = url;
+              item ["art_id"] = row.ID;
+              item ["art_type"] = row.Media_Format;
+              item ["art_tags"] = row.Tags;
+              item ["row_number"] = row._rowNumber;
+              // console.log(item);
+              jsonObj.push(item);
+            // }
+
+            // passed++;
+
+          }
+
+      };
+      return jsonObj;
+    
+    }
+
+    // Get the artwork to correspond with a certain page number
     if(data.page_number){
       let pageNumber = data.page_number;
       // console.log(pageNumber);
@@ -84,6 +122,7 @@ module.exports.getRow = async (data) => {
       return jsonObj;
     }
 
+    // Get a single artwork based on id
     else if (data.id){
       let rows = await sheet.getRows({offset: start, limit: pageLength});
       // console.log(rows)
@@ -131,6 +170,43 @@ module.exports.getRow = async (data) => {
       return null;
 
     }
+    // Get everything, used for search results
+    // else{
+    //   let rows = await sheet.getRows({offset: start, limit: pageLength});
+    //   // console.log(rows)
+    //   // console.log(rows[1]);
+
+    //   for (let index = 0; index < rows.length; index++) {
+    //       let jsonObj = [];
+    //       var row = rows[index];
+    //       if(row.Valid === "TRUE"){
+    //         // if (passed >= start && passed <= end) {
+    //           item = {};
+    //           item ["art_title"] = row.Artwork_Name;
+    //           item ["art_creator"] = row.Artist_Name;
+    //           item ["art_description"] = row.Description;;
+    //           // item ["art_source"] = row.Upload_Artwork;
+    //           //test other source of art
+    //           artsourcelink = row.Upload_Artwork;
+    //           baseUrl = "https://drive.google.com/uc?id";
+    //           imageId = artsourcelink.substr(32, 34); //this will extract the image ID from the shared image link
+    //           url = baseUrl.concat(imageId);
+    //           item ["art_source"] = url;
+    //           item ["art_id"] = row.ID;
+    //           item ["art_type"] = row.Media_Format;
+    //           item ["art_tags"] = row.Tags;
+    //           item ["row_number"] = row._rowNumber;
+    //           // console.log(item);
+    //           jsonObj.push(item);
+    //         // }
+
+    //         // passed++;
+
+    //       }
+
+    //   };
+    //   return jsonObj;
+    // }
 };
 
 module.exports.getArtwork = async (id) => {
