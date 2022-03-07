@@ -10,9 +10,9 @@
     Sort by
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a id="titleAZ" class="dropdown-item" href="{{page_number}}?sort=art_title">Title A-Z</a></li>
-    <li><a class="dropdown-item" href="{{page_number}}?sort=art_creator">Creator A-Z</a></li>
-    <li><a class="dropdown-item" href="#">Newest</a></li>
+    <li><a id="titleAZ" class="dropdown-item" onclick="window.location+=((window.location.href.indexOf('?')+1)?'':'?')+'&sort=art_title'">Title A-Z</a></li>
+    <li><a class="dropdown-item" onclick="window.location+=((window.location.href.indexOf('?')+1)?'':'?')+'&sort=art_creator'">Creator A-Z</a></li>
+    <li><a class="dropdown-item" onclick="window.location+=((window.location.href.indexOf('?')+1)?'':'?')+'&sort=relevance'">Relevance</a></li>
   </ul>
 </div>
             {{#each artwork}}
