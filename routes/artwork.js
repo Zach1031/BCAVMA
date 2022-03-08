@@ -2,7 +2,7 @@ const e = require('express');
 var express = require('express');
 var {google} = require('googleapis')
 var router = express.Router();
-var data = require('../dummy_data/data');
+var data = require('../data/data');
 
 // Set up search
 const Fuse = require('fuse.js');
@@ -84,7 +84,9 @@ router.get('/', async function(req, res, next) {
 
     let art = await data.getRow({id: id});
 
-    if(art) {res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art });}
+    console.log(art.art_tags);
+
+    if(art) {res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art, tags: art.art_tags });}
     else{next();}
   }
 

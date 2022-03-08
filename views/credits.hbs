@@ -1,3 +1,11 @@
-<container>
-      <p style="text-align:center">Made by Jeremy, Max, Zach</p>
-</container>
+<div class="container">
+      <p1 style="text-align:center;">Made by Jeremy, Max, Zach</p1>
+</div>
+<div class="container">
+      <p1>With artwork from:</p1>
+      {{#each artwork}}
+            <div class="container col-2">
+                  <p1 style="text-align:center;">{{art_creator}}</p1>
+            </div>
+      {{/each}}
+</div>
