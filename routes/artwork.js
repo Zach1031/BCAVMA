@@ -19,9 +19,15 @@ const options = {
   ]
 };
 
+let tags = [
+  {"tag_name": 'Freshman'},
+  {"tag_name": 'Sophomore'},
+  {"tag_name": 'Junior'},
+  {"tag_name": 'Senior'}
+]
+
 //Search returns additional information in the json, so it needs to be formatted
 function formatSearch(search_result){
-  console.log(search_result);
   jsonObj = [];
   search_result.forEach(function (item){
     jsonObj.push(item.item);
@@ -71,7 +77,8 @@ router.get('/:page_number', async function(req, res, next) {
         artwork: artwork,
         previous: parseInt(page_number)-1,
         next: parseInt(page_number)+1,
-  page_number: page_number});
+        page_number: page_number,
+        tags: tags});
   });
 
 router.get('/', async function(req, res, next) {
