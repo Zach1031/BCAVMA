@@ -1,7 +1,8 @@
 <link rel="shortcut icon" href="TemplateData/favicon.ico">
 <link rel="stylesheet" href="TemplateData/style.css">
-
-<div id="unity-container" class="unity-desktop">
+<link href="/stylesheets/loadUnity.css" rel="stylesheet">
+<div style="height:700px; width:960px">
+<div id="unity-container" class="unity-desktop" style="margin-top:10px;">
   <canvas id="unity-canvas" width=960 height=600></canvas>
   <div id="unity-loading-bar">
     <div id="unity-logo"></div>
@@ -15,6 +16,7 @@
     <div id="unity-fullscreen-button"></div>
     <div id="unity-build-title">BCAVMA</div>
   </div>
+</div>
 </div>
 <script>
   var container = document.querySelector("#unity-container");
@@ -86,4 +88,3 @@
   };
   document.body.appendChild(script);
 </script>
-
