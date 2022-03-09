@@ -16,8 +16,7 @@
                     <br>
                     <br>
                     {{#each art_tags}}
-                        <span class="badge badge-secondary">{{this}}</span>
-                        {{this}}
+                        <button class="btn btn-primary rounded-pill" onclick="window.location.href=&quot/artwork/1?tag={{this}}&quot">{{this}}</button>
                     {{/each}}
                 </div>
             </div>

@@ -15,6 +15,10 @@ const getServerSide = async() => {
   const sheets = google.sheets({ version: 'v4', auth });
 }
 
+function formatTags(tags){
+  return (tags.trim()).split(',');
+}
+
 module.exports.getRow = async (data) => {
 
 
@@ -54,7 +58,7 @@ module.exports.getRow = async (data) => {
               item ["art_source"] = url;
               item ["art_id"] = row.ID;
               item ["art_type"] = row.Media_Format;
-              item ["art_tags"] = row.Tags;
+              item ["art_tags"] = formatTags(row.Tags);
               item ["row_number"] = row._rowNumber;
               // console.log(item);
               jsonObj.push(item);
@@ -107,7 +111,7 @@ module.exports.getRow = async (data) => {
               item ["art_source"] = url;
               item ["art_id"] = row.ID;
               item ["art_type"] = row.Media_Format;
-              item ["art_tags"] = row.Tags;
+              item ["art_tags"] = formatTags(row.Tags);
               item ["row_number"] = row._rowNumber;
               // console.log(item);
               jsonObj.push(item);
@@ -157,7 +161,7 @@ module.exports.getRow = async (data) => {
               item ["art_source"] = url;
               item ["art_id"] = row.ID;
               item ["art_type"] = row.Media_Format;
-              item ["art_tags"] = row.Tags;
+              item ["art_tags"] = formatTags(row.Tags);
               item ["row_number"] = row._rowNumber;
 
               console.log(item);

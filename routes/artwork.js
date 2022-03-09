@@ -34,7 +34,9 @@ router.get('/:page_number', async function(req, res, next) {
   let id = req.query.id;
   let search = req.query.search;
   let sort = req.query.sort;
+  let tags = req.query.tag;
   let page_number = req.params.page_number;
+
 
   let artwork = [];
 
@@ -44,6 +46,34 @@ router.get('/:page_number', async function(req, res, next) {
     const fuse = new Fuse(all_artwork, options);
 
     artwork = formatSearch(fuse.search(search));
+  }
+
+  else if (tags){
+    artwork = await data.getRow();
+    tags = tags.split('+');
+    console.log(tags);
+    console.log(artwork.length);
+    let temp_list = [];
+
+    //This is horrible code, could def be improved
+    for(i = 0; i < artwork.length; i++){
+      let art = artwork[i];
+      console.log(art);
+      let include_tags = false;
+      for(j = 0; j < art.art_tags.length; j++){
+        console.log(art.art_tags[j]);
+        if(tags.includes(art.art_tags[j])){
+          console.log(art.art_tags[j]);
+          include_tags = true;
+        }
+      }
+      if(include_tags){
+        //console.log("removing: ", artwork.get(i));
+        temp_list.push(artwork[i]);
+      }
+    }
+
+    artwork = temp_list;
   }
 
   else{artwork = await data.getRow({page_number: page_number});}
@@ -63,6 +93,7 @@ router.get('/:page_number', async function(req, res, next) {
       });
     }
   }
+    
 
 // Once the result is searched for, paginated, and sorted, it's rendered
   res.render('artwork', { title: 'BCAVMA',
