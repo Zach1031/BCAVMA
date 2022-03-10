@@ -22,3 +22,14 @@
 .buffer-zone{
     padding-top: 10px;
 }
+
+.btn {
+    border:  #008CBA;
+    background-color: #008CBA;
+    /* align-self: center; */
+}
+
+.btn-image {
+    width: 40px;
+    height: 40px;
+}

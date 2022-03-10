@@ -61,7 +61,7 @@
   width: 100%;
   opacity: 0%;
   transition: .5s ease;
-  color: rgb(34, 40, 117);
+  color: rgb(45, 53, 170);
   font-size: 20px;
   text-align: center;
 }
@@ -99,7 +99,7 @@
   background-size: cover;
 }
 
-.container {
+.artwork {
   position: relative;
   width: 50%; 
 }

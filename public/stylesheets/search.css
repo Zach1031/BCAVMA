@@ -10,18 +10,18 @@ button {
     height: 37px;
     background-color: white;
     color: black;
-    border: 2px solid #008CBA;
+    border: 2px solid #AECBD6;
     text-align: center;
     opacity: 90%;
     transition: .5s ease
   }
   button:hover{
-    background-color: #007cba;
+    background-color: #AECBD6;
     color: white;
     opacity: 1;
   }
   input {
     width: 94%;
     height: 41px;
-    border: 2px solid #008CBA;
+    border: 2px solid #AECBD6;
   }

@@ -11,12 +11,22 @@
                 <img class="img-fluid col-10" src="{{art_source}}">
             </div>
             <div class="container col-md-3">
-                <div class="row">
+                <div class="row pb-3">
                     <p1>{{art_description}}</p1>
                     <br>
                     <br>
+                    <br>
+                    <div class="container">
                     {{#each art_tags}}
-                        <button class="btn btn-primary rounded-pill" onclick="window.location.href=&quot/artwork/1?tag={{this}}&quot">{{this}}</button>
+                    <div class="text-center my-1">
+                            <button class="btn btn-primary rounded-pill w-75" onclick="window.location.href=&quot/artwork/1?tag={{this}}&quot">
+                                <!--<img class="btn-image" src="/images/tag.png">{{this}}-->
+                                {{this}}
+                            </button>
+                    </div>
+                    </div>
+        
+                        
                     {{/each}}
                 </div>
             </div>
