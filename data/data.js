@@ -70,7 +70,7 @@ module.exports.getRow = async (data) => {
 
       };
       return jsonObj;
-    
+
     }
 
     // Get the artwork to correspond with a certain page number
@@ -82,8 +82,8 @@ module.exports.getRow = async (data) => {
 
       var start = pageLength * (pageNumber - 1);
       var end = (pageLength * pageNumber) - 1;
-      console.log(start);
-      console.log(end);
+      // console.log(start);
+      // console.log(end);
 
       let rows = await sheet.getRows({offset: start, limit: pageLength});
       let passed = 0;
@@ -164,13 +164,13 @@ module.exports.getRow = async (data) => {
               item ["art_tags"] = formatTags(row.Tags);
               item ["row_number"] = row._rowNumber;
 
-              console.log(item);
+              // console.log(item);
               return item;
           }
 
       };
-      console.log("null "+ data.id + " and " + row.ID);
-      console.log(index);
+      // console.log("null "+ data.id + " and " + row.ID);
+      // console.log(index);
       return null;
 
     }
