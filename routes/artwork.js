@@ -9,7 +9,7 @@ const Fuse = require('fuse.js');
 const options = {
   isCaseSensitive: false,
   shouldSort: true,
-  threshold: 0.5,
+  threshold: 0.15,
   keys: [
     {
       name: "art_title",
@@ -93,7 +93,7 @@ router.get('/:page_number', async function(req, res, next) {
       });
     }
   }
-    
+
 
 // Once the result is searched for, paginated, and sorted, it's rendered
   res.render('artwork', { title: 'BCAVMA',
