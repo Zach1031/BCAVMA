@@ -15,7 +15,8 @@ const options = {
       name: "art_title",
       weight: 2
     },
-    "art_creator"
+    "art_creator",
+    "art_tags"
   ]
 };
 
