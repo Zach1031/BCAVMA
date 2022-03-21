@@ -34,10 +34,10 @@ module.exports.getRow = async (data) => {
 
     let sheet = doc.sheetsByIndex[0];
 
+    console.log(sheet._rowMetadata);
+
     if(data == null){
       let rows = await sheet.getRows();
-      // console.log(rows)
-      // console.log(rows[1]);
       let jsonObj = [];
 
       for (let index = 0; index < rows.length; index++) {

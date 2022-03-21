@@ -9,7 +9,7 @@ const Fuse = require('fuse.js');
 const options = {
   isCaseSensitive: false,
   shouldSort: true,
-  threshold: 0.15,
+  threshold: 0.3,
   keys: [
     {
       name: "art_title",
@@ -45,8 +45,17 @@ router.get('/:page_number', async function(req, res, next) {
   if(search){
     let all_artwork = await data.getRow();
     const fuse = new Fuse(all_artwork, options);
+    let page_number_number = parseInt(page_number);
+    artwork = formatSearch(fuse.search(search))
 
-    artwork = formatSearch(fuse.search(search));
+    if((page_number_number - 1) * 8 > artwork.length){
+      next();
+      return;
+    }
+
+    artwork = artwork.slice(page_number_number - 1, page_number_number * 8);
+    console.log(artwork);
+    console.log(artwork.length)
   }
 
   else if (tags){
@@ -69,7 +78,6 @@ router.get('/:page_number', async function(req, res, next) {
         }
       }
       if(include_tags){
-        //console.log("removing: ", artwork.get(i));
         temp_list.push(artwork[i]);
       }
     }
@@ -97,12 +105,14 @@ router.get('/:page_number', async function(req, res, next) {
 
 
 // Once the result is searched for, paginated, and sorted, it's rendered
+  console.log(parseInt(page_number) * 8);
+  console.log(artwork.length);
   res.render('artwork', { title: 'BCAVMA',
         layout: 'layout',
         search: 'search',
         artwork: artwork,
-        previous: parseInt(page_number)-1,
-        next: parseInt(page_number)+1,
+        previous: parseInt(page_number) !== 1 ? parseInt(page_number) - 1 : null,
+        next: artwork.length == 8 ? parseInt(page_number) + 1 : null,
   page_number: page_number});
   });
 

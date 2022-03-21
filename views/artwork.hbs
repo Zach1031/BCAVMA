@@ -30,10 +30,22 @@
     <nav aria-label="Page navigation example">
         <div class="row">
             <ul class="pagination row-md-3">
-                <li class="page-item"><a class="page-link" href="{{previous}}">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="{{page_number}}">{{page_number}}</a></li>
-                <!-- <li class="page-item"><a class="page-link" href="{{next}}">{{next}}</a></li> -->
-                <li class="page-item"><a class="page-link" href="{{next}}">Next</a></li>
+                {{!-- {{#if previous}}
+                    <li class="page-item"><a class="page-link" href="pagination{{previous}}">Previous</a></li>
+                {{/if}}
+                    <li class="page-item"><a class="page-link" href="{{page_number}}">{{page_number}}</a></li>
+                {{#if next}}
+                    <li class="page-item"><a class="page-link" href="{{next}}">Next</a></li>
+                {{/if}} --}}
+                {{#if previous}}
+                    <li class="page-item"><a id="previous" class="page-link" onclick="pagination({{previous}})">Previous</a></li>
+                {{/if}}
+
+                    <li class="page-item"><a id="current" class="page-link" onclick="pagination({{page_number}});">{{page_number}}</a></li>
+                
+                {{#if next}}
+                    <li class="page-item"><a id="next" class="page-link" onclick="pagination({{next}})">Next</a></li>
+                {{/if}}
             </ul>
         </div>
     </nav>
@@ -49,8 +61,32 @@
     </div>
 <script>
     function addUrlParameter(name, value) {
-    var searchParams = new URLSearchParams(window.location.search)
-    searchParams.set(name, value)
-    window.location.search = searchParams.toString()
+        var searchParams = new URLSearchParams(window.location.search);
+        searchParams.set(name, value);
+        window.location.search = searchParams.toString();
     }
+
+    function pagination(page_number){
+        let location = window.location.href;
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+        console.log(params);
+
+        let search_string = "";
+
+        for (parameter in params) {
+            if (params.hasOwnProperty(parameter)) {
+                if(!search_string === ""){search_string += "&"}
+                search_string += parameter + "=" + params[parameter];
+            }
+
+        
+        }    
+
+        console.log("/artwork/" + page_number + "?" + search_string);
+        window.location.href = "/artwork/" + page_number + "?" + search_string;
+    }
+
+
+
 </script>

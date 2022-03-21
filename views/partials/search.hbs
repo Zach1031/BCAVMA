@@ -12,15 +12,14 @@
     //f.addEventListener('submit', submitted);
 
   function checkValues() {
-        searchBox = document.getElementById("query");
+        searchBox = document.getElementById("search");
         console.log(searchBox.value);
-        return searchBox.value != "";
+        window.location.href = "/artwork/1?search=" + searchBox.value;
     }
 </script>
 <form role="search" id="form" onsubmit="checkValues();">
       <input type="search" id="query" name="search" placeholder="Search the gallery...">
-      <button>
+      <button onclick="checkValues">
         Search
       </button>
-
 </form>
