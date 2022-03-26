@@ -1,0 +1,8 @@
+.test1 {
+    /* display: inline;
+    float: left;
+    width: 50%; */
+    width: 120%;
+    column-count:2;
+    column-rule: 1px solid lightblue;
+}
