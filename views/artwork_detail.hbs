@@ -1,7 +1,17 @@
 <link href="/stylesheets/artwork_detail.css" rel="stylesheet">
 {{#with art}}
+
+</div>
 <div class="container">
+
         <div class="row">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <button class="btn btn-primary" onclick="history.back()">Back to Previous Gallery</button>
+            </div>
+          <!-- <div class="col-md-0 text-right">
+            <button class="btn btn-primary" onclick="history.back()">Back to Previous Gallery</button>
+          </div> -->
             <h1 class="head-text col-3">{{art_title}}</h1>
             <p3 class="by-text col-1">by</p3>
             <h1 class="head-text col-4">{{art_creator}}</h1>

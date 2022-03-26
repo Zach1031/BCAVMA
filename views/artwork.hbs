@@ -4,7 +4,6 @@
 
 
 
-
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="sortMenu" data-bs-toggle="dropdown" aria-expanded="false">
     Sort by
@@ -12,13 +11,13 @@
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     <li><a id="titleAZ" class="dropdown-item" onclick="addUrlParameter('sort', 'art_title')">Title A-Z</a></li>
     <li><a class="dropdown-item" onclick="addUrlParameter('sort', 'art_creator')">Creator A-Z</a></li>
-    <li><a class="dropdown-item" onclick="addUrlParameter('sort', 'art_relevance')">Relevance</a></li>
+    <li><a class="dropdown-item" onclick="deleteSort()">Relevance</a></li>
   </ul>
 </div>
             {{#each artwork}}
 
             <!--- replace img with embed or iframe and change css (deals with all file types) || add conditional to do either img or video player --->
-            <div class="container artwork col-6">
+            <div class="container artwork col-3">
                     <img src="{{art_source}}" class="img-fluid w-100 shadow-1-strong rounded mb-4">
                         <a href="/artwork/{{page_number}}?id={{art_id}}">
                         <div class="overlay">
@@ -42,7 +41,7 @@
                 {{/if}}
 
                     <li class="page-item"><a id="current" class="page-link" onclick="pagination({{page_number}});">{{page_number}}</a></li>
-                
+
                 {{#if next}}
                     <li class="page-item"><a id="next" class="page-link" onclick="pagination({{next}})">Next</a></li>
                 {{/if}}
@@ -61,8 +60,14 @@
     </div>
 <script>
     function addUrlParameter(name, value) {
-        var searchParams = new URLSearchParams(window.location.search);
+        let searchParams = new URLSearchParams(window.location.search);
         searchParams.set(name, value);
+        window.location.search = searchParams.toString();
+    }
+
+    function deleteSort(){
+        let searchParams = new URLSearchParams(window.location.search);
+        searchParams.delete('sort');
         window.location.search = searchParams.toString();
     }
 
@@ -80,8 +85,8 @@
                 search_string += parameter + "=" + params[parameter];
             }
 
-        
-        }    
+
+        }
 
         console.log("/artwork/" + page_number + "?" + search_string);
         window.location.href = "/artwork/" + page_number + "?" + search_string;
