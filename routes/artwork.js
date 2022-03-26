@@ -10,24 +10,36 @@ const options = {
   isCaseSensitive: false,
   shouldSort: true,
   threshold: 0.3,
-  keys: [
-    {
-      name: "art_title",
-      weight: 2
-    },
-    "art_creator",
-    "art_tags"
+  keys: [ 'keywords'
+    // {
+    //   name: "art_title",
+    //   weight: 2
+    // },
+    // "art_creator",
+    // "art_tags"
   ]
 };
 
 //Search returns additional information in the json, so it needs to be formatted
 function formatSearch(search_result){
-  console.log(search_result);
   jsonObj = [];
   search_result.forEach(function (item){
     jsonObj.push(item.item);
   });
   return jsonObj;
+}
+
+function generateKeyWords(artwork){
+  keywords = [];
+  artwork.forEach(art => {
+    art.keywords = []
+    art.keywords.push(art.art_creator);
+    art.keywords.push(art.art_title);
+    art.art_tags.forEach(tag => art.keywords.push(tag));
+  });
+
+
+  return artwork;
 }
 
 /* GET home page. */
@@ -44,6 +56,7 @@ router.get('/:page_number', async function(req, res, next) {
   // Determine if the work to be displayed in rendered based on search query or page number
   if(search){
     let all_artwork = await data.getRow();
+    all_artwork = generateKeyWords(all_artwork);
     const fuse = new Fuse(all_artwork, options);
     let page_number_number = parseInt(page_number);
     artwork = formatSearch(fuse.search(search))
