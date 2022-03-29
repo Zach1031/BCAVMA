@@ -153,7 +153,6 @@
         if(search){
             searchParams.set('search', search) 
         }
-        else{ return; }
         
         if(tags){
             searchParams.set('tags', tags); 
@@ -165,6 +164,7 @@
     function addUrlParameter(name, value) {
         let searchParams = new URLSearchParams(window.location.search);
         searchParams.set(name, value);
+        window.location.search = searchParams.toString();
     }
 
     function deleteSort(){

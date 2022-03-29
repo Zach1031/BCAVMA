@@ -79,7 +79,6 @@ router.get('/:page_number', async function(req, res, next) {
 
     for(i = 0; i < artwork.length; i++){
       let art = artwork[i];
-      console.log(art.art_tags);
       art.art_tags.forEach(function(tag) {
         if(tags.includes((tag.toLowerCase()).trim())){
           temp_list.push(art);
@@ -91,7 +90,6 @@ router.get('/:page_number', async function(req, res, next) {
 
   if(search){
     if(!(artwork)){
-      console.log('here');
       artwork = await data.getRow()
     };
     // all_artwork = generateKeyWords(all_artwork);
@@ -122,17 +120,26 @@ router.get('/:page_number', async function(req, res, next) {
 
 
 // Once the result is searched for, filtered, and sorted, it's paginated
-  if((page_number - 1) * 8 > artwork.length){
-    next();
-    return;
-  }
+  // if((page_number - 1) * 8 > artwork.length){
+  //   next();
+  //   return;
+  // }
+  // artwork = artwork.slice(page_number - 1, page_number * 8);
+  // res.render('artwork', { title: 'BCAVMA',
+  //       layout: 'layout',
+  //       search: 'search',
+  //       artwork: artwork,
+  //       previous: page_number !== 1 ? page_number - 1 : null,
+  //       next: artwork.length == 8 ? page_number + 1 : null,
+  // page_number: page_number});
+  // });
   artwork = artwork.slice(page_number - 1, page_number * 8);
   res.render('artwork', { title: 'BCAVMA',
         layout: 'layout',
         search: 'search',
         artwork: artwork,
-        previous: page_number !== 1 ? page_number - 1 : null,
-        next: artwork.length == 8 ? page_number + 1 : null,
+        previous: page_number - 1 ,
+        next: page_number + 1,
   page_number: page_number});
   });
 
