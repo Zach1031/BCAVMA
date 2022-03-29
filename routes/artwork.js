@@ -58,7 +58,6 @@ router.get('/:page_number', async function(req, res, next) {
   if (tags){
     artwork = await data.getRow();
     tags = tags.split('+');
-    console.log(tags);
     let temp_list = [];
 
     //This is horrible code, could def be improved

@@ -29,41 +29,60 @@
             border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         } */
     </style>
-{{!-- <form role="search" id="form" onsubmit="checkValues();"> --}}
-    <input type="search" id="search" name="search" placeholder="Search the gallery...">
-      
-    <button onclick="searchByParams()">
-        Search
-    </button>
-    <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="freshmanCheck" name="tags" value="freshman">
-        <label class="form-check-label" for="freshmanCheck">Freshman</label>
-    </div>  
-    <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="sophomoreCheck" name="tags" value="sophomore">
-        <label class="form-check-label" for="sophomoreCheck">Sophomore</label>
-    </div>  
-    <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="juniorCheck" name="tags" value="junior">
-        <label class="form-check-label" for="juniorCheck">Junior</label>
+
+<input type="search" id="search" name="search" placeholder="Search the gallery...">
+    
+<button onclick="searchByParams()">
+    Search
+</button>
+<div class="row">
+    <div class="col-9">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="freshmanCheck" name="tags" value="freshman">
+            <label class="form-check-label" for="freshmanCheck">Freshman</label>
+        </div>  
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="sophomoreCheck" name="tags" value="sophomore">
+            <label class="form-check-label" for="sophomoreCheck">Sophomore</label>
+        </div>  
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="juniorCheck" name="tags" value="junior">
+            <label class="form-check-label" for="juniorCheck">Junior</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="seniorCheck" name="tags" value="senior">
+            <label class="form-check-label" for="seniorCheck">Senior</label>
+        </div>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="sortMenu" data-bs-toggle="dropdown" aria-expanded="false">
+            More tags
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <div class="row">
+                <li>
+                    <div class="form-check form-switch col-6 d-flex justify-content-end">
+                        <input class="form-check-input" type="checkbox" id="oilCheck" name="tags" value="oil">
+                        <label class="form-check-label" for="oilCheck">oil</label>
+                    </div>
+                    <div class="form-check form-switch col-6 d-flex justify-content-end">
+                        <input class="form-check-input" type="checkbox" id="oilCheck" name="tags" value="oil">
+                        <label class="form-check-label" for="oilCheck">oil</label>
+                    </div>
+                </li>
+            </div>
+        </ul>   
     </div>
-    <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="seniorCheck" name="tags" value="senior">
-        <label class="form-check-label" for="seniorCheck">Senior</label>
-    </div>    
-{{!-- </form> --}}
-
-
-
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="sortMenu" data-bs-toggle="dropdown" aria-expanded="false">
-    Sort by
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a id="titleAZ" class="dropdown-item" onclick="addUrlParameter('sort', 'art_title')">Title A-Z</a></li>
-    <li><a class="dropdown-item" onclick="addUrlParameter('sort', 'art_creator')">Creator A-Z</a></li>
-    <li><a class="dropdown-item" onclick="deleteSort()">Relevance</a></li>
-  </ul>
+    <div class="col-3">
+        <div class="dropdown d-flex justify-content-end">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="sortMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort by
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a id="titleAZ" class="dropdown-item" onclick="addUrlParameter('sort', 'art_title')">Title A-Z</a></li>
+                <li><a class="dropdown-item" onclick="addUrlParameter('sort', 'art_creator')">Creator A-Z</a></li>
+                <li><a class="dropdown-item" onclick="deleteSort()">Relevance</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
             {{#each artwork}}
 
