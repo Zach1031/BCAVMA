@@ -55,6 +55,9 @@ router.get('/:page_number', async function(req, res, next) {
 
   // Determine if the work to be displayed in rendered based on search query or page number
   if(search){
+    for(keyword in search){
+      console.log(keyword);
+    }
     let all_artwork = await data.getRow();
     all_artwork = generateKeyWords(all_artwork);
     const fuse = new Fuse(all_artwork, options);

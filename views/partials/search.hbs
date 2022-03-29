@@ -39,15 +39,24 @@
 
     //f.addEventListener('submit', submitted);
 
-  function checkValues() {
-        searchBox = document.getElementById("search");
-        console.log(searchBox.value);
-        window.location.href = "/artwork/1?search=" + searchBox.value;
-    }
+    
 </script>
 <form role="search" id="form" onsubmit="checkValues();">
-      <input type="search" id="query" name="search" placeholder="Search the gallery..."  data-role="tagsinput" class="form-control">
-      <button onclick="checkValues">
+    <input type="search" id="query" name="search" placeholder="Search the gallery..."  data-role="tagsinput" class="form-control">
+      
+    <button onclick="checkValues">
         Search
-      </button>
+    </button>
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="tags" value="freshman">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Freshman</label>
+    </div>  
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="tags" value="sophomore">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Sophomore</label>
+    </div>  
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="tags" value="junior">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Junior</label>
+    </div>  
 </form>
