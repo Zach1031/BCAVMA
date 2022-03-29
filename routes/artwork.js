@@ -6,17 +6,18 @@ var data = require('../data/data');
 
 // Set up search
 const Fuse = require('fuse.js');
+const { composer } = require('googleapis/build/src/apis/composer');
 const options = {
   isCaseSensitive: false,
   shouldSort: true,
   threshold: 0.3,
-  keys: [ 'keywords'
-    // {
-    //   name: "art_title",
-    //   weight: 2
-    // },
-    // "art_creator",
-    // "art_tags"
+  keys: [ 
+    {
+      name: "art_title",
+      weight: 2
+    },
+    "art_creator",
+    "art_tags"
   ]
 };
 
@@ -47,61 +48,62 @@ router.get('/:page_number', async function(req, res, next) {
   let id = req.query.id;
   let search = req.query.search;
   let sort = req.query.sort;
-  let tags = req.query.tag;
-  let page_number = req.params.page_number;
+  let tags = req.query.tags;
+  let page_number = parseInt(req.params.page_number);
 
 
-  let artwork = [];
+  let artwork;
 
   // Determine if the work to be displayed in rendered based on search query or page number
-  if(search){
-    for(keyword in search){
-      console.log(keyword);
-    }
-    let all_artwork = await data.getRow();
-    all_artwork = generateKeyWords(all_artwork);
-    const fuse = new Fuse(all_artwork, options);
-    let page_number_number = parseInt(page_number);
-    artwork = formatSearch(fuse.search(search))
-
-    if((page_number_number - 1) * 8 > artwork.length){
-      next();
-      return;
-    }
-
-    artwork = artwork.slice(page_number_number - 1, page_number_number * 8);
-    console.log(artwork);
-    console.log(artwork.length)
-  }
-
-  else if (tags){
+  if (tags){
     artwork = await data.getRow();
     tags = tags.split('+');
     console.log(tags);
-    console.log(artwork.length);
     let temp_list = [];
 
     //This is horrible code, could def be improved
+    // for(i = 0; i < artwork.length; i++){
+    //   let art = artwork[i];
+    //   console.log(art);
+    //   let include_tags = false;
+    //   for(j = 0; j < art.art_tags.length; j++){
+    //     console.log(art.art_tags[j]);
+    //     if(tags.includes(art.art_tags[j])){
+    //       console.log(art.art_tags[j]);
+    //       include_tags = true;
+    //     }
+    //   }
+    //   if(include_tags){
+    //     temp_list.push(artwork[i]);
+    //   }
+    // }
+
     for(i = 0; i < artwork.length; i++){
       let art = artwork[i];
-      console.log(art);
-      let include_tags = false;
-      for(j = 0; j < art.art_tags.length; j++){
-        console.log(art.art_tags[j]);
-        if(tags.includes(art.art_tags[j])){
-          console.log(art.art_tags[j]);
-          include_tags = true;
+      console.log(art.art_tags);
+      art.art_tags.forEach(function(tag) {
+        if(tags.includes((tag.toLowerCase()).trim())){
+          temp_list.push(art);
         }
-      }
-      if(include_tags){
-        temp_list.push(artwork[i]);
-      }
+      });
     }
-
     artwork = temp_list;
   }
 
-  else{artwork = await data.getRow({page_number: page_number});}
+  if(search){
+    if(!(artwork)){
+      console.log('here');
+      artwork = await data.getRow()
+    };
+    // all_artwork = generateKeyWords(all_artwork);
+    const fuse = new Fuse(artwork, options);
+    artwork = formatSearch(fuse.search(search))
+    
+  }
+
+  
+
+  if(!(search) && !(tags)){artwork = await data.getRow({page_number: page_number});}
 
   // If a sort is requested apply it
   // There's probably a cleaner way to do it
@@ -120,15 +122,18 @@ router.get('/:page_number', async function(req, res, next) {
   }
 
 
-// Once the result is searched for, paginated, and sorted, it's rendered
-  console.log(parseInt(page_number) * 8);
-  console.log(artwork.length);
+// Once the result is searched for, filtered, and sorted, it's paginated
+  if((page_number - 1) * 8 > artwork.length){
+    next();
+    return;
+  }
+  artwork = artwork.slice(page_number - 1, page_number * 8);
   res.render('artwork', { title: 'BCAVMA',
         layout: 'layout',
         search: 'search',
         artwork: artwork,
-        previous: parseInt(page_number) !== 1 ? parseInt(page_number) - 1 : null,
-        next: artwork.length == 8 ? parseInt(page_number) + 1 : null,
+        previous: page_number !== 1 ? page_number - 1 : null,
+        next: artwork.length == 8 ? page_number + 1 : null,
   page_number: page_number});
   });
 
