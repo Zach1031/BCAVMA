@@ -1,11 +1,14 @@
-<div class="container">
+<link href="/stylesheets/credits.css" rel="stylesheet">
+<div class="container col-3">
       <p1 style="text-align:center;">Made by Jeremy, Max, and Zach</p1>
 </div>
 <div class="container">
       <p1>With artwork from:</p1>
-      {{#each artwork}}
+      {{#each names}}
+      <div class="test1">
             <div class="container col-4">
-                  <p1 style="text-align:center;">{{art_creator}}</p1>
+                  <p1 class="list" style="text-align:center;">{{this}}</p1>
             </div>
+      </div>
       {{/each}}
 </div>

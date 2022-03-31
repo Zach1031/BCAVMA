@@ -1,7 +1,17 @@
 <link href="/stylesheets/artwork_detail.css" rel="stylesheet">
 {{#with art}}
+
+</div>
 <div class="container">
+
         <div class="row">
+          <!-- <div class="row">
+            <div class="col-md-12 text-center">
+              <button class="btn btn-primary" onclick="history.back()">Back to Previous Gallery</button>
+            </div> -->
+          <!-- <div class="col-md-0 text-right">
+            <button class="btn btn-primary" onclick="history.back()">Back to Previous Gallery</button>
+          </div> -->
             <h1 class="head-text col-3">{{art_title}}</h1>
             <p3 class="by-text col-1">by</p3>
             <h1 class="head-text col-4">{{art_creator}}</h1>
@@ -19,18 +29,15 @@
                     <div class="container">
                     {{#each art_tags}}
                     <div class="text-center my-1">
-                            <button class="btn btn-primary rounded-pill w-75" onclick="window.location.href=&quot/artwork/1?tag={{this}}&quot">
+                            <button class="btn btn-primary rounded-pill w-75" onclick="window.location.href=&quot/artwork/1?tags={{this}}&quot">
                                 <!--<img class="btn-image" src="/images/tag.png">{{this}}-->
                                 {{this}}
                             </button>
                     </div>
                     </div>
-
-
                     {{/each}}
                 </div>
             </div>
-
         </div>
         <div class="container col-10 text-center">
             <hr>
@@ -41,6 +48,9 @@
                 <a href="https://forms.gle/hZt9kkPEzvfWM3G1A" target="_blank" class="btn btn-outline-dark">Submit</a>
             </div>
             <hr>
+            <div class="buffer-zone text-center pt-2 pb-4">
+                    <a onclick="history.back();" target="_blank" class="btn btn-primary w-25">Back to Previous Gallery</a>
+            </div>
         </div>
 </div>
 {{/with}}

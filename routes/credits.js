@@ -8,14 +8,23 @@ router.get('/', async function(req, res, next) {
   //Sort by last name
   this.artwork = artwork.sort(function (a, b) {
     let name_a = a.art_creator.split(' ')[1];
-    console.log(name_a);
-    console.log(name_a[1]);
     let name_b = b.art_creator.split(' ')[1];
     return name_a.localeCompare(name_b);
   });
+
+  let names = [];
+
+  for (i = 0; i < artwork.length; i++){
+    if(!(names.indexOf(artwork[i].art_creator) + 1)){
+      names.push(artwork[i].art_creator);
+    }
+  }
+
+  console.log(names);
+
   res.render('credits', { title: 'BCAVMA', 
                           layout: 'layout',
-                          artwork: artwork});
+                          names: names});
 });
 
 module.exports = router;
