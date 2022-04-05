@@ -17,7 +17,7 @@ var aboutRouter = require('./routes/about');
 var creditsRouter = require('./routes/credits');
 var loginRouter = require('./routes/login');
 var launchRouter = require('./routes/loadUnity');
-var submitRouter = require('./routes/submission')
+var submitRouter = require('./routes/submission');
 
 var app = express();
 

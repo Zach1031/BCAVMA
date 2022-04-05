@@ -43,20 +43,40 @@ function generateKeyWords(artwork){
   return artwork;
 }
 
+function isNumeric(page_number){
+  for(i = 0; i < page_number.length; i++){
+    if(page_number.charCodeAt(i) > 57 || page_number.charCodeAt(i) < 48){
+      return false;
+    }
+  }
+
+  return true;
+}
+
 /* GET home page. */
 router.get('/:page_number', async function(req, res, next) {
   let id = req.query.id;
   let search = req.query.search;
   let sort = req.query.sort;
   let tags = req.query.tags;
+  if(!isNumeric(req.params.page_number)){
+    next(); return;
+  }
+
   let page_number = parseInt(req.params.page_number);
 
 
+  let artwork_data;
   let artwork;
+  let next_page;
 
   // Determine if the work to be displayed in rendered based on search query or page number
   if (tags){
-    artwork = await data.getRow();
+    artwork_data = await data.getRow();
+    if(!artwork_data){
+      next(); return;
+    }
+    artwork = artwork_data.artwork;
     tags = tags.split('+');
     let temp_list = [];
 
@@ -90,7 +110,11 @@ router.get('/:page_number', async function(req, res, next) {
 
   if(search){
     if(!(artwork)){
-      artwork = await data.getRow()
+      artwork_data = await data.getRow();
+      if(!artwork_data){
+        next(); return;
+      }
+      artwork = artwork_data.artwork;
     };
     // all_artwork = generateKeyWords(all_artwork);
     const fuse = new Fuse(artwork, options);
@@ -100,7 +124,13 @@ router.get('/:page_number', async function(req, res, next) {
 
   
 
-  if(!(search) && !(tags)){artwork = await data.getRow({page_number: page_number});}
+  if(!(search) && !(tags)){
+    artwork_data = await data.getRow({page_number: page_number});
+    if(!artwork_data){
+        next(); return;
+      }
+    artwork = artwork_data.artwork;
+  }
 
   // If a sort is requested apply it
   // There's probably a cleaner way to do it
@@ -119,29 +149,22 @@ router.get('/:page_number', async function(req, res, next) {
   }
 
 
-// Once the result is searched for, filtered, and sorted, it's paginated
-  // if((page_number - 1) * 8 > artwork.length){
-  //   next();
-  //   return;
-  // }
-  // artwork = artwork.slice(page_number - 1, page_number * 8);
-  // res.render('artwork', { title: 'BCAVMA',
-  //       layout: 'layout',
-  //       search: 'search',
-  //       artwork: artwork,
-  //       previous: page_number !== 1 ? page_number - 1 : null,
-  //       next: artwork.length == 8 ? page_number + 1 : null,
-  // page_number: page_number});
-  // });
-  artwork = artwork.slice(page_number - 1, page_number * 8);
+  //Need to see if you go out of bounds
+  if(!artwork){
+    next(); return;
+  }
+
+  // console.log(page_number);
+  // console.log(artwork_length);
   res.render('artwork', { title: 'BCAVMA',
         layout: 'layout',
         search: 'search',
         artwork: artwork,
-        previous: page_number - 1 ,
-        next: page_number + 1,
-  page_number: page_number});
-  });
+        previous: page_number !== 1 ? page_number - 1 : null,
+        next: artwork_data.next_page ? page_number + 1 : null,
+        page_number: page_number
+    });
+});
 
 router.get('/', async function(req, res, next) {
   let id = req.query.id;
@@ -160,7 +183,7 @@ router.get('/', async function(req, res, next) {
   }
 
   else{
-    res.redirect('/artwork/1')
+    res.redirect('/artwork/1');
   }
 });
 

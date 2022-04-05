@@ -81,14 +81,20 @@ module.exports.getRow = async (data) => {
       var pageLength = 8;
 
       var start = pageLength * (pageNumber - 1);
-      var end = (pageLength * pageNumber) - 1;
+      var end = pageLength * pageNumber;
       // console.log(start);
       // console.log(end);
 
-      let rows = await sheet.getRows({offset: start, limit: pageLength});
+      // let rows = await sheet.getRows({offset: start, limit: pageLength});
+      let rows = await sheet.getRows();
+      console.log(rows.length);
+      if(start > rows.length){
+        return null;
+      }
+
       let passed = 0;
       //console.log(rows)
-      for (let index = 0; index < rows.length; index++) {
+      for (let index = start; index < end; index++) {
           //const row = rows[index]._rawData;
           const row = rows[index];
           // console.log(row);
@@ -123,7 +129,9 @@ module.exports.getRow = async (data) => {
 
 
       };
-      return jsonObj;
+
+      console.log(jsonObj);
+      return {artwork: jsonObj, next_page: ((pageNumber + 1) * 8 <= rows.length)};
     }
 
     // Get a single artwork based on id
