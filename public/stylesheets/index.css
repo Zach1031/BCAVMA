@@ -60,9 +60,34 @@
     align-items: center;
     justify-content: center;
   }
+  .frame {
+  	text-align: center;
+  	position: relative;
+  	cursor: pointer;
+  	perspective: 500px;
+  }
 
-.overlay {
-  position: absolute;
+  .frame .details {
+  	width: 70%;
+  	height: 270px;
+  	padding: 5% 8%;
+  	position: absolute;
+  	content: "";
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%) rotateY(90deg);
+  	transform-origin: 50%;
+  	background: rgba(255,255,255,0.9);
+  	opacity: 0;
+  	transition: all 0.4s ease-in;
+
+  }
+  .frame:hover .details {
+  	transform: translate(-50%, -50%) rotateY(0deg);
+  	opacity: 1;
+  }
+/* .overlay {
+  /* position: absolute;
   top: 0;
   height: 96%;
   width: 97%;
@@ -70,14 +95,31 @@
   transition: .5s ease;
   color: rgb(45, 53, 170);
   font-size: 20px;
-  text-align: center;
+  text-align: center; */
+  position: absolute;
+  height: 98%;
+  width: 96%;
+  opacity: 0%;
+    top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 10;
+    opacity: 0;
+    color: rgb(45, 53, 170);
+    transition: all 0.8s ease;
 }
-
-.container:hover .overlay {
+.text h1{
+  margin: 0;
+	color: rgb(45, 53, 170);
+}
+.text:hover{
+  opacity: 1;
+} */
+/* .container:hover .overlay {
   opacity: 75%;
   /* box-shadow: 10px 10px 5px rgb(92, 91, 91); */
   border: 5px solid rgb(45, 53, 170);
-}
+} */
 
 
 .description-text{
