@@ -40,11 +40,11 @@
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="freshmanCheck" name="tags" value="freshman">
             <label class="form-check-label" for="freshmanCheck">Freshman</label>
-        </div>  
+        </div>
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="sophomoreCheck" name="tags" value="sophomore">
             <label class="form-check-label" for="sophomoreCheck">Sophomore</label>
-        </div>  
+        </div>
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="juniorCheck" name="tags" value="junior">
             <label class="form-check-label" for="juniorCheck">Junior</label>
@@ -68,7 +68,7 @@
                     {{/each}}
                 </li>
             </div>
-        </ul>   
+        </ul>
     </div>
     <div class="col-3">
         <div class="dropdown d-flex justify-content-end">
@@ -87,11 +87,17 @@
 
             <!--- replace img with embed or iframe and change css (deals with all file types) || add conditional to do either img or video player --->
             <div class="container artwork col-3">
+              <a href="/artwork/{{page_number}}?id={{art_id}}">
+                <div class = "frame">
                     <img src="{{art_source}}" class="img-fluid w-100 shadow-1-strong rounded mb-4">
-                        <a href="/artwork/{{page_number}}?id={{art_id}}">
-                        <div class="overlay">
-                            <div class="text">{{art_title}}</div>
+
+                        <div class="details">
+                          <h1 style=" font-weight: bold;">{{art_title}}</h1>
+                          <h4> by <h4>
+                          <h2> {{art_creator}}</h2>
+
                         </div>
+                      </div>
                         </a>
             </div>
             {{/each}}
@@ -139,7 +145,7 @@
         let string = "";
         for(i = 0; i < tags.length; i++){
             let tag = tags[i];
-            if(tag.checked){ 
+            if(tag.checked){
                 string = string !== "" ? string + "+" + tag.value : tag.value;
             }
         }
@@ -154,15 +160,15 @@
         let tags = findTags();
         console.log('here');
         console.log(tags);
-        
+
         if(search){
-            searchParams.set('search', search) 
+            searchParams.set('search', search)
         }
-        
+
         if(tags){
-            searchParams.set('tags', tags); 
+            searchParams.set('tags', tags);
         }
-        
+
         window.location.search = searchParams.toString();
     }
 
