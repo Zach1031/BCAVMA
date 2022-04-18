@@ -162,7 +162,8 @@ router.get('/:page_number', async function(req, res, next) {
         artwork: artwork,
         previous: page_number !== 1 ? page_number - 1 : null,
         next: artwork_data.next_page ? page_number + 1 : null,
-        page_number: page_number
+        page_number: page_number,
+        tags: artwork_data.tags
     });
 });
 

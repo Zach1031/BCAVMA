@@ -30,7 +30,7 @@
         } */
     </style>
 
-<input type="search" id="search" name="search" placeholder="Search the gallery...">
+<input type="search" id="search" onkeypress="checkSearch(event)" name="search" placeholder="Search the gallery...">
     
 <button onclick="searchByParams()">
     Search
@@ -59,14 +59,13 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <div class="row">
                 <li>
-                    <div class="form-check form-switch col-6 d-flex justify-content-end">
-                        <input class="form-check-input" type="checkbox" id="oilCheck" name="tags" value="oil">
-                        <label class="form-check-label" for="oilCheck">oil</label>
-                    </div>
-                    <div class="form-check form-switch col-6 d-flex justify-content-end">
-                        <input class="form-check-input" type="checkbox" id="oilCheck" name="tags" value="oil">
-                        <label class="form-check-label" for="oilCheck">oil</label>
-                    </div>
+
+                    {{#each tags}}
+                        <div class="form-check form-switch d-flex justify-content-start">
+                            <input class="form-check-input" type="checkbox" id="{{this}}Check" name="tags" value="{{this}}">
+                            <label class="form-check-label" for="{{this}}Check">{{this}}</label>
+                        </div>
+                    {{/each}}
                 </li>
             </div>
         </ul>   
@@ -129,6 +128,12 @@
             <hr>
     </div>
 <script>
+    function checkSearch(e){
+        if(e.keyCode == 13){
+            searchByParams();
+        }
+    }
+
     function findTags(){
         let tags = document.getElementsByClassName('form-check-input');
         let string = "";

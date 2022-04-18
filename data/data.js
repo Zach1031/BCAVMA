@@ -33,6 +33,8 @@ module.exports.getRow = async (data) => {
     await doc.loadInfo();
 
     let sheet = doc.sheetsByIndex[0];
+    let tags = [];
+    let SKIP_TAGS = ["Freshman", "Sophomore", "Junior", "Senior"]
 
     console.log(sheet._rowMetadata);
 
@@ -41,7 +43,6 @@ module.exports.getRow = async (data) => {
       let jsonObj = [];
 
       for (let index = 0; index < rows.length; index++) {
-
           var row = rows[index];
           if(row.Valid === "TRUE"){
             // if (passed >= start && passed <= end) {
@@ -59,6 +60,11 @@ module.exports.getRow = async (data) => {
               item ["art_id"] = row.ID;
               item ["art_type"] = row.Media_Format;
               item ["art_tags"] = formatTags(row.Tags);
+              item["art_tags"].forEach(function (tag){
+                if(!tags.includes(tag) && !SKIP_TAGS.includes(tag)){
+                    tags.push(tag);
+                  }
+              });
               item ["row_number"] = row._rowNumber;
               // console.log(item);
               jsonObj.push(item);
@@ -69,7 +75,7 @@ module.exports.getRow = async (data) => {
           }
 
       };
-      return jsonObj;
+      return {artwork: jsonObj, tags: tags};
 
     }
 
@@ -94,15 +100,20 @@ module.exports.getRow = async (data) => {
 
       let passed = 0;
       //console.log(rows)
-      for (let index = start; index < end; index++) {
+      for (let index = 0; index < rows.length; index++) {
           //const row = rows[index]._rawData;
           const row = rows[index];
           // console.log(row);
           // console.log(row.Valid);
 
+          formatTags(row.Tags).forEach(function (tag){
+            console.log(tag);
+            if(!tags.includes(tag) && !SKIP_TAGS.includes(tag)){
+                tags.push(tag);
+              }
+          });
 
-
-          if(row.Valid === "TRUE"){
+          if(row.Valid === "TRUE" && (index >= start && index < end)){
             // if (passed >= start && passed <= end) {
               item = {};
               item ["art_title"] = row.Artwork_Name;
@@ -118,6 +129,8 @@ module.exports.getRow = async (data) => {
               item ["art_id"] = row.ID;
               item ["art_type"] = row.Media_Format;
               item ["art_tags"] = formatTags(row.Tags);
+              console.log(item["art_tags"]);
+              
               item ["row_number"] = row._rowNumber;
               // console.log(item);
               jsonObj.push(item);
@@ -131,7 +144,7 @@ module.exports.getRow = async (data) => {
       };
 
       console.log(jsonObj);
-      return {artwork: jsonObj, next_page: ((pageNumber + 1) * 8 <= rows.length)};
+      return {artwork: jsonObj, tags: tags, next_page: ((pageNumber + 1) * 8 <= rows.length)};
     }
 
     // Get a single artwork based on id
