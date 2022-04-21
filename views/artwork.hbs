@@ -169,7 +169,9 @@
             searchParams.set('tags', tags);
         }
 
-        window.location.search = searchParams.toString();
+
+
+        window.location.href = "/artwork/1?" + searchParams.toString();
     }
 
     function addUrlParameter(name, value) {
