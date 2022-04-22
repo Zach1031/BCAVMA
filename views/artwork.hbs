@@ -146,11 +146,10 @@
         for(i = 0; i < tags.length; i++){
             let tag = tags[i];
             if(tag.checked){
-                string = string !== "" ? string + "+" + tag.value : tag.value;
+                string = string !== "" ? string + "+" + tag.value.toLowerCase() : tag.value.toLowerCase();
             }
         }
 
-        console.log('string')
         return string;
     }
 
