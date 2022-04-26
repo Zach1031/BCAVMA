@@ -1,4 +1,1 @@
 node_modules/*
-/routes/test_search.js
-/views/test.hbs
-/routes/test.js
