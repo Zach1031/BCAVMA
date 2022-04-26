@@ -80,23 +80,6 @@ router.get('/:page_number', async function(req, res, next) {
     tags = tags.split('+');
     let temp_list = [];
 
-    //This is horrible code, could def be improved
-    // for(i = 0; i < artwork.length; i++){
-    //   let art = artwork[i];
-    //   console.log(art);
-    //   let include_tags = false;
-    //   for(j = 0; j < art.art_tags.length; j++){
-    //     console.log(art.art_tags[j]);
-    //     if(tags.includes(art.art_tags[j])){
-    //       console.log(art.art_tags[j]);
-    //       include_tags = true;
-    //     }
-    //   }
-    //   if(include_tags){
-    //     temp_list.push(artwork[i]);
-    //   }
-    // }
-
     for(i = 0; i < artwork.length; i++){
       let art = artwork[i];
       art.art_tags.forEach(function(tag) {
@@ -116,7 +99,6 @@ router.get('/:page_number', async function(req, res, next) {
       }
       artwork = artwork_data.artwork;
     };
-    // all_artwork = generateKeyWords(all_artwork);
     const fuse = new Fuse(artwork, options);
     artwork = formatSearch(fuse.search(search))
     
@@ -154,8 +136,6 @@ router.get('/:page_number', async function(req, res, next) {
     next(); return;
   }
 
-  // console.log(page_number);
-  // console.log(artwork_length);
   res.render('artwork', { title: 'BCAVMA',
         layout: 'layout',
         search: 'search',

@@ -90,19 +90,6 @@ app.use('/submission',submitRouter);
 var hbs = require('hbs');
 hbs.registerPartials(__dirname + '/views/partials', function (err) {;});
 
-// hbs.registerHelper("embed", function(artwork) {
-//   const embeded = ""
-//   if(artwork["art_type"] === "Video"){
-//       embeded = "<video src=\"" + artwork["art_source"] + "\">";
-//   }
-
-//   else{
-//       embeded = "<img class=\"img-fluid col-10\" src=\"" + artwork["art_source"] + "\">";
-//   }
-  
-//   return embeded;
-// });
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
