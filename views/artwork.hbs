@@ -161,7 +161,11 @@
         console.log(tags);
 
         if(search){
-            searchParams.set('search', search)
+            searchParams.set('search', search);
+        }
+
+        else{
+            searchParams.delete('search');
         }
 
         if(tags){
