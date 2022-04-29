@@ -169,9 +169,3 @@ module.exports.getRow = async (data) => {
 
     }
 };
-
-module.exports.getArtwork = async (id) => {
-
-
-
-};
