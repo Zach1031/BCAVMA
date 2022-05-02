@@ -69,7 +69,7 @@ module.exports.getRow = async (data) => {
               item ["art_type"] = row.Media_Format;
               item ["art_tags"] = formatTags(row.Tags);
               item["art_tags"].forEach(function (tag){
-                if(!tags.includes(tag) && !SKIP_TAGS.includes(tag)){
+                if(!tags.includes(tag)){
                     tags.push(tag);
                   }
               });
@@ -106,7 +106,7 @@ module.exports.getRow = async (data) => {
 
           formatTags(row.Tags).forEach(function (tag){
             console.log(tag);
-            if(!tags.includes(tag) && !SKIP_TAGS.includes(tag)){
+            if(!tags.includes(tag)){
                 tags.push(tag);
               }
           });

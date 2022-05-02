@@ -53,6 +53,14 @@ function isNumeric(page_number){
   return true;
 }
 
+function stripWhiteSpace(string){
+  for(i = 0; i < string.length; i++){
+    if(!(string.charAt(i) == ' ')){
+      return (string.substring(i)).toLowerCase();
+    }
+  }
+}
+
 /* GET home page. */
 router.get('/:page_number', async function(req, res, next) {
   let id = req.query.id;
@@ -136,6 +144,15 @@ router.get('/:page_number', async function(req, res, next) {
     next(); return;
   }
 
+  tag_info = [];
+
+
+
+  artwork_data.tags.forEach(tag =>{
+    tag_info.push({'name': tag, 'check': (tags && tags.includes(stripWhiteSpace(tag)))});
+    
+  });
+
   res.render('artwork', { title: 'BCAVMA',
         layout: 'layout',
         search: 'search',
@@ -143,7 +160,7 @@ router.get('/:page_number', async function(req, res, next) {
         previous: page_number !== 1 ? page_number - 1 : null,
         next: artwork_data.next_page ? page_number + 1 : null,
         page_number: page_number,
-        tags: artwork_data.tags
+        tags: tag_info
     });
 });
 
@@ -159,7 +176,17 @@ router.get('/', async function(req, res, next) {
 
     console.log(art.art_tags);
 
-    if(art) {res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art, tags: art.art_tags });}
+    
+
+    art_tags_list = [];
+
+    art.art_tags.forEach(tag => {
+      art_tags_list.push(tag.toLowerCase());
+    });
+
+    console.log(art_tags_list);
+
+    if(art) {res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art, tags: art_tags_list });}
     else{next();}
   }
 
