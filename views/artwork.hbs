@@ -29,12 +29,11 @@
             border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         } */
     </style>
+    <div class="input-group">
+      <input type="search" id="search" onkeypress="checkSearch(event)" name="search" class="form-control rounded" placeholder="Search the gallery..." aria-label="Search" aria-describedby="search-addon">
+      <button onclick="searchByParams()" type="button" class="btn btn-outline-secondary" id="button-addon2"> Search </button>
+    </div>
 
-<input type="search" id="search" onkeypress="checkSearch(event)" name="search" placeholder="Search the gallery...">
-    
-<button onclick="searchByParams()">
-    Search
-</button>
 <div class="row">
     <div class="col-9">
         {{!-- <div class="form-check form-switch">

@@ -6,3 +6,7 @@
     column-count:2;
     column-rule: 1px solid lightblue;
 } */
+.input{
+  flex-grow: 0;
+  flex-basis: 100px;
+}
