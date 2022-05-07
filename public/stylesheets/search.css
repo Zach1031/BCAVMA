@@ -25,3 +25,5 @@ button {
     height: 41px;
     border: 2px solid #AECBD6;
   } */
+  .dropdown-menu {display: block;visibility: hidden;opacity:0;transform: translateY(50px);transition:.5s ease all;}
+  .dropdown-menu.show {display: block;visibility: visible;opacity:1;transform: translateY(0px);transition:.5s ease all;}
