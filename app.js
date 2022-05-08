@@ -18,7 +18,7 @@ var creditsRouter = require('./routes/credits');
 var loginRouter = require('./routes/login');
 var launchRouter = require('./routes/loadUnity');
 var submitRouter = require('./routes/submission');
-
+// var jsonRouter = require('./routes/json');
 var app = express();
 
 // test logs for artwork requests
@@ -85,6 +85,7 @@ app.use('/credits', creditsRouter);
 app.use('/login', loginRouter);
 app.use('/loadUnity',launchRouter);
 app.use('/submission',submitRouter);
+// app.use('/json',jsonRouter);
 
 
 var hbs = require('hbs');
@@ -93,6 +94,9 @@ hbs.registerPartials(__dirname + '/views/partials', function (err) {;});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
+});
+app.get("/json",function(req,res){
+  res.json({"message":"hello"});
 });
 
 // error handler
