@@ -90,6 +90,9 @@ app.use('/submission',submitRouter);
 
 var hbs = require('hbs');
 hbs.registerPartials(__dirname + '/views/partials', function (err) {;});
+hbs.registerHelper('toLowerCase', function(str) {
+  return str.toLowerCase();
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
