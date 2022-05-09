@@ -61,6 +61,38 @@ function stripWhiteSpace(string){
   }
 }
 
+function sortByCriteria (artworkList, criteria) {
+  let returnArtwork;
+  console.log(artworkList);
+  if(criteria === "art_title"){
+    returnArtwork = artworkList.sort(function (a, b) {
+    return a.art_title.localeCompare(b.art_title);
+    });
+  }
+
+  else if(criteria === "art_creator"){
+    returnArtwork = artworkList.sort(function (a, b) {
+    return a.art_creator.localeCompare(b.art_creator);
+    });
+  }
+
+  console.log(returnArtwork);
+  return returnArtwork;
+}
+
+function containsTag(tag, tag_list){
+  tag = tag.toLowerCase();
+  let returnVale = false;
+  tag_list.forEach(tagInList => {
+    // console.log(tag + tagInList.toLowerCase())
+    if(tag === tagInList.toLowerCase()){
+      returnVale = true;
+    }
+  });
+
+  return returnVale;
+}
+
 /* GET home page. */
 router.get('/:page_number', async function(req, res, next) {
   let id = req.query.id;
@@ -74,93 +106,70 @@ router.get('/:page_number', async function(req, res, next) {
   let page_number = parseInt(req.params.page_number);
 
 
-  let artwork_data;
-  let artwork;
-  let next_page;
-
-  // Determine if the work to be displayed in rendered based on search query or page number
-  if (tags){
-    artwork_data = await data.getRow();
-    if(!artwork_data){
-      next(); return;
-    }
-    artwork = artwork_data.artwork;
-    tags = tags.split('+');
-    let temp_list = [];
-
-    for(i = 0; i < artwork.length; i++){
-      let art = artwork[i];
-      art.art_tags.forEach(function(tag) {
-        if(tags.includes((tag.toLowerCase()).trim())){
-          temp_list.push(art);
-        }
-      });
-    }
-    artwork = temp_list;
-  }
+  let artwork_data = await data.getAllArtwork();
+  let artwork = artwork_data.artwork;
+  let tag_list = artwork_data.tags;
 
   if(search){
-    if(!(artwork)){
-      artwork_data = await data.getRow();
-      if(!artwork_data){
-        next(); return;
-      }
-      artwork = artwork_data.artwork;
-    };
     const fuse = new Fuse(artwork, options);
-    artwork = formatSearch(fuse.search(search))
-    
+    artwork = formatSearch(fuse.search(search));
   }
 
-  
+  if(sort){
+    if(sort !== 'art_title' && sort !== 'art_creator'){
+      next(); return;
+    }
 
-  if(!(search) && !(tags)){
-    artwork_data = await data.getRow({page_number: page_number});
-    if(!artwork_data){
-        next(); return;
+    artwork = sortByCriteria(artwork, sort);
+  }
+
+  if(tags){
+    tags = tags.split('+');
+    let temp_artwork = [];
+    artwork.forEach(art => {
+      
+      let containsTagBool = false;
+      console.log(art['art_tags']);
+      art['art_tags'].forEach(artTag => {
+        containsTagBool = containsTag(artTag, tags);
+      });
+
+      if(containsTagBool){
+        temp_artwork.push(art);
       }
-    artwork = artwork_data.artwork;
+
+      containsTagBool = false;
+    });
+
+    artwork = temp_artwork;
   }
 
-  // If a sort is requested apply it
-  // There's probably a cleaner way to do it
-  if (sort){
-    if(sort == "art_title"){
-      this.artwork = artwork.sort(function (a, b) {
-        return a.art_title.localeCompare(b.art_title);
-      });
-    }
+  // let filtered_tag_list = [];
+  // tag_list.forEach(artTag => {
+  //   if(containsTag(artTag, tag_list)){
+  //     filtered_tag_list.push({name: artTag, check: true});
+  //   }
 
-    else if(sort == "art_creator"){
-      this.artwork = artwork.sort(function (a, b) {
-        return a.art_creator.localeCompare(b.art_creator);
-      });
-    }
-  }
+  //   else{
+  //     filtered_tag_list.push({name: artTag, check: null});
+  //   }
+  // });
 
-
-  //Need to see if you go out of bounds
-  if(!artwork){
+  if((page_number - 1) * 8 > artwork.length){
     next(); return;
   }
 
-  tag_info = [];
-
-
-
-  artwork_data.tags.forEach(tag =>{
-    tag_info.push({'name': tag, 'check': (tags && tags.includes(stripWhiteSpace(tag)))});
-    
-  });
+  let artwork_length = artwork.length;
+  artwork = artwork.slice((page_number - 1) * 8, page_number * 8);
 
   res.render('artwork', { title: 'BCAVMA',
         layout: 'layout',
         search: 'search',
         artwork: artwork,
         previous: page_number !== 1 ? page_number - 1 : null,
-        next: artwork_data.next_page ? page_number + 1 : null,
+        next: (page_number + 1) * 8 < artwork_length ? page_number + 1 : null,
         page_number: page_number,
-        tags: tag_info
+        tags: tag_list
     });
 });
 
@@ -172,21 +181,19 @@ router.get('/', async function(req, res, next) {
   if(id){
     if((!(search == null)) || (!(sort == null))){next();}
 
-    let art = await data.getRow({id: id});
+    let art = await data.getArtwork(id);
 
-    console.log(art.art_tags);
+    console.log(art);
+
+    console.log(art['art_tags']);
 
     
 
-    art_tags_list = [];
+    //art_tags_list = [];
 
-    art.art_tags.forEach(tag => {
-      art_tags_list.push(tag.toLowerCase());
-    });
+    //console.log(art_tags_list);
 
-    console.log(art_tags_list);
-
-    if(art) {res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art, tags: art_tags_list });}
+    if(art) {res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art, tags: art['art_tags'] });}
     else{next();}
   }
 
