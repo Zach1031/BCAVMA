@@ -7,6 +7,7 @@ const { GoogleSpreadsheet } = require('google-spreadsheet');
 var {google} = require('googleapis');
 // File handling package
 const fs = require('fs');
+const Filter = require('bad-words')
 const RESPONSES_SHEET_ID = '1VEIONwFJ0TQzdLZX41bddhHmM1eNxbRyCiBP2KaYNZA';
 
 const formatMessage = require('./utils/messages');
@@ -66,8 +67,14 @@ io.on('connection', socket => {
   // Listen for chatMessage
   socket.on('chatMessage', msg => {
     const user = getCurrentUser(socket.id);
+    const filter = new Filter()
+    if (filter.isProfane(msg)) {
+            io.to(user.room).emit('message', formatMessage(botName, 'No bad words here '+ user.username + '!!! Wash your mouth with some soap'));
+    }
+    else{
+      io.to(user.room).emit('message', formatMessage(user.username, msg));
+    }
 
-    io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
 
   // Runs when client disconnects

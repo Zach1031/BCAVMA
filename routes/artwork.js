@@ -11,7 +11,7 @@ const options = {
   isCaseSensitive: false,
   shouldSort: true,
   threshold: 0.3,
-  keys: [ 
+  keys: [
     {
       name: "art_title",
       weight: 2
@@ -127,7 +127,7 @@ router.get('/:page_number', async function(req, res, next) {
     tags = tags.split('+');
     let temp_artwork = [];
     artwork.forEach(art => {
-      
+
       let containsTagBool = false;
       console.log(art['art_tags']);
       art['art_tags'].forEach(artTag => {
@@ -187,7 +187,7 @@ router.get('/', async function(req, res, next) {
 
     console.log(art['art_tags']);
 
-    
+
 
     //art_tags_list = [];
 
