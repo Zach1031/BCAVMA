@@ -4,7 +4,7 @@ var data = require('../data/data');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  let artworkData = await data.getRow();
+  let artworkData = await data.getAllArtwork();
   let artwork = artworkData.artwork;
   //Sort by last name
   this.artwork = artwork.sort(function (a, b) {
