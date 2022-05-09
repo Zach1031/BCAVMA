@@ -90,8 +90,9 @@
     						<label for="room">Room: </label>
     						<select name="room" id="room">
                   <!-- zach help put all artwork names -->
-    							<option value="Clouds">Clouds</option>
-    							<option value="Stickman">Stickman</option>
+                  {{#each artwork}}
+    							<option value="{{id}}">{{title}}</option>
+                  {{/each}}
     						</select>
     					</div>
     					<button type="submit" class="btn">Join Chat</button>

@@ -1,10 +1,14 @@
 var express = require('express');
 var router = express.Router();
+var data = require('../data/data');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
+  let art = await data.getArtwork(req.query.room);
+
   res.render('chat', { title: 'BCAVMA',
-                        layout: 'layout'});
+                        layout: 'layout',
+                        art_source: art['art_source']});
 });
 
 module.exports = router;

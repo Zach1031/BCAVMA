@@ -19,6 +19,9 @@
           <h2 id="room-name"></h2>
           <h3>Users:</h3>
           <ul id="users"></ul>
+          {{#with art_source}}
+            <img src={{this}}>
+          {{/with}}
         </div>
         <div class="chat-messages"></div>
       </main>
