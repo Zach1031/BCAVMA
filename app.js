@@ -54,13 +54,18 @@ io.on('connection', socket => {
       .to(user.room)
       .emit(
         'message',
-        formatMessage(botName, `${user.username} has joined the chat`)
+        formatMessage(botName, `${user.username} has joined our chat`)
       );
 
     // Send users and room info
     io.to(user.room).emit('roomUsers', {
       room: user.room,
       users: getRoomUsers(user.room)
+    });
+  });
+  socket.on('typing', () => {
+    socket.broadcast.emit('typing', {
+      username: user.username
     });
   });
 
