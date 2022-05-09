@@ -9,7 +9,13 @@ var {google} = require('googleapis');
 const fs = require('fs');
 const RESPONSES_SHEET_ID = '1VEIONwFJ0TQzdLZX41bddhHmM1eNxbRyCiBP2KaYNZA';
 
-
+const formatMessage = require('./utils/messages');
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers
+} = require('./utils/users');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var artworkRouter = require('./routes/artwork');
@@ -18,9 +24,70 @@ var creditsRouter = require('./routes/credits');
 var loginRouter = require('./routes/login');
 var launchRouter = require('./routes/loadUnity');
 var submitRouter = require('./routes/submission');
+var chatRouter = require('./routes/chat');
 // var jsonRouter = require('./routes/json');
+var http = require('http');
 var app = express();
+var server = http.createServer(app);
+var io = require('socket.io')(server);
+const port = process.env.PORT || 3000;
 
+server.listen(port, () => {
+  console.log('Server listening at port %d', port);
+});
+
+const botName = 'Gallery Hall';
+
+// Run when client connects
+io.on('connection', socket => {
+  socket.on('joinRoom', ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
+
+    socket.join(user.room);
+
+    // Welcome current user
+    socket.emit('message', formatMessage(botName, 'Welcome to Gallery Hall!'));
+
+    // Broadcast when a user connects
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        'message',
+        formatMessage(botName, `${user.username} has joined the chat`)
+      );
+
+    // Send users and room info
+    io.to(user.room).emit('roomUsers', {
+      room: user.room,
+      users: getRoomUsers(user.room)
+    });
+  });
+
+  // Listen for chatMessage
+  socket.on('chatMessage', msg => {
+    const user = getCurrentUser(socket.id);
+
+    io.to(user.room).emit('message', formatMessage(user.username, msg));
+  });
+
+  // Runs when client disconnects
+  socket.on('disconnect', () => {
+    const user = userLeave(socket.id);
+
+    if (user) {
+      io.to(user.room).emit(
+        'message',
+        formatMessage(botName, `${user.username} has left the chat`)
+      );
+
+      // Send users and room info
+      io.to(user.room).emit('roomUsers', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      });
+    }
+  });
+});
 // test logs for artwork requests
 // const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID);
 // // Credentials for the service account
@@ -85,6 +152,7 @@ app.use('/credits', creditsRouter);
 app.use('/login', loginRouter);
 app.use('/loadUnity',launchRouter);
 app.use('/submission',submitRouter);
+app.use('/chat',chatRouter);
 // app.use('/json',jsonRouter);
 
 
