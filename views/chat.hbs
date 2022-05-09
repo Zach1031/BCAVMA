@@ -15,15 +15,14 @@
       </header>
       <main class="chat-main">
         <div class="chat-sidebar">
-          <h4 style>Artwork: </h4>
-          <h2 id="room-name"></h2>
+          <h2 id="room-name" style="color: #205375;"></h2>
           <div class="art-image">
             {{#with art_source}}
               <img src={{this}}>
             {{/with}}
           </div>
           <h3>Members:</h3>
-          <ul id="users"></ul>
+          <ul id="users" style="color:#205375"></ul>
         </div>
         <div class="chat-messages"></div>
       </main>
