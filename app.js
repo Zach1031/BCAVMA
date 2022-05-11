@@ -29,8 +29,14 @@ var chatRouter = require('./routes/chat');
 // var jsonRouter = require('./routes/json');
 var http = require('http');
 var app = express();
+var cors = require('cors');
 var server = http.createServer(app);
-var io = require('socket.io')(server);
+var io = require('socket.io')(server, {
+  cors: {
+    origin: "https://bcavma.herokuapp.com",
+    methods: ["GET", "POST"]
+  }
+});
 const port = process.env.PORT || 3000;
 
 server.listen(port, () => {
@@ -47,7 +53,7 @@ io.on('connection', socket => {
     socket.join(user.room);
 
     // Welcome current user
-    socket.emit('message', formatMessage(botName, 'Welcome to the Gallery Hall '+ user.username + "!"));
+    socket.emit('message', formatMessage(botName, 'Welcome to Gallery Hall '+ user.username + "!!!"));
 
     // Broadcast when a user connects
     socket.broadcast

@@ -54,7 +54,10 @@ a {
 	display: grid;
 	grid-template-columns: 1fr 3fr;
 }
-
+img {
+  max-width: 100%;
+  height: auto;
+}
 .chat-sidebar {
 	background: #E8F9FD;
 	color: #2155CD;
