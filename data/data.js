@@ -51,6 +51,22 @@ sortByCriteria = async (artworkList, criteria) => {
   return returnArtwork;
 }
 
+function containsTag(tag, tag_list){
+  //console.log(tag);
+  tag = (tag.toLowerCase()).trim();
+  let returnVale = false;
+
+  for(i = 0; i < tag_list.length; i++){
+    console.log((tag_list[i].toLowerCase()).trim());
+    if(tag === (tag_list[i].toLowerCase()).trim()){
+      console.log('here');
+      return true;
+    }
+  }
+
+  return returnVale;
+}
+
 module.exports.getAllArtwork = async (data) => {
     // use service account creds
     await doc.useServiceAccountAuth({
@@ -85,9 +101,9 @@ module.exports.getAllArtwork = async (data) => {
             item ["art_type"] = row.Media_Format;
             item ["art_tags"] = formatTags(row.Tags);
             item["art_tags"].forEach(function (tag){
-              if(!tags.includes(tag)){
-                  tags.push(tag);
-                }
+            if(!containsTag(tag, tags)){
+                tags.push(tag);
+            }
             });
             item ["row_number"] = row._rowNumber;
 

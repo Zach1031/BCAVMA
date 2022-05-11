@@ -30,19 +30,6 @@ function formatSearch(search_result){
   return jsonObj;
 }
 
-function generateKeyWords(artwork){
-  keywords = [];
-  artwork.forEach(art => {
-    art.keywords = []
-    art.keywords.push(art.art_creator);
-    art.keywords.push(art.art_title);
-    art.art_tags.forEach(tag => art.keywords.push(tag));
-  });
-
-
-  return artwork;
-}
-
 function isNumeric(page_number){
   for(i = 0; i < page_number.length; i++){
     if(page_number.charCodeAt(i) > 57 || page_number.charCodeAt(i) < 48){
@@ -51,14 +38,6 @@ function isNumeric(page_number){
   }
 
   return true;
-}
-
-function stripWhiteSpace(string){
-  for(i = 0; i < string.length; i++){
-    if(!(string.charAt(i) == ' ')){
-      return (string.substring(i)).toLowerCase();
-    }
-  }
 }
 
 function sortByCriteria (artworkList, criteria) {
@@ -80,17 +59,17 @@ function sortByCriteria (artworkList, criteria) {
   return returnArtwork;
 }
 
-function containsTag(tag, tag_list){
-  tag = tag.toLowerCase();
-  let returnVale = false;
-  tag_list.forEach(tagInList => {
-    // console.log(tag + tagInList.toLowerCase())
-    if(tag === tagInList.toLowerCase()){
-      returnVale = true;
+function overlappingTags(tags1, tags2){
+  for(i = 0; i < tags1.length; i++){
+    for(j = 0; j < tags2.length; j++){
+      if((tags1[i].toLowerCase()).trim() === (tags2[j].toLowerCase()).trim()){
+        console.log('here');
+        return true;
+      }
     }
-  });
+  }
 
-  return returnVale;
+  return false;
 }
 
 /* GET home page. */
@@ -99,6 +78,7 @@ router.get('/:page_number', async function(req, res, next) {
   let search = req.query.search;
   let sort = req.query.sort;
   let tags = req.query.tags;
+
   if(!isNumeric(req.params.page_number)){
     next(); return;
   }
@@ -127,33 +107,13 @@ router.get('/:page_number', async function(req, res, next) {
     tags = tags.split('+');
     let temp_artwork = [];
     artwork.forEach(art => {
-
-      let containsTagBool = false;
-      console.log(art['art_tags']);
-      art['art_tags'].forEach(artTag => {
-        containsTagBool = containsTag(artTag, tags);
-      });
-
-      if(containsTagBool){
+      if(overlappingTags(art['art_tags'], tags)){
         temp_artwork.push(art);
       }
-
-      containsTagBool = false;
     });
 
     artwork = temp_artwork;
   }
-
-  // let filtered_tag_list = [];
-  // tag_list.forEach(artTag => {
-  //   if(containsTag(artTag, tag_list)){
-  //     filtered_tag_list.push({name: artTag, check: true});
-  //   }
-
-  //   else{
-  //     filtered_tag_list.push({name: artTag, check: null});
-  //   }
-  // });
 
   if((page_number - 1) * 8 > artwork.length){
     next(); return;
@@ -179,19 +139,9 @@ router.get('/', async function(req, res, next) {
   let sort = req.query.sort;
 
   if(id){
-    if((!(search == null)) || (!(sort == null))){next();}
+    if((!(search == null)) || (!(sort == null))){next(); return;}
 
     let art = await data.getArtwork(id);
-
-    console.log(art);
-
-    console.log(art['art_tags']);
-
-
-
-    //art_tags_list = [];
-
-    //console.log(art_tags_list);
 
     if(art) {res.render('artwork_detail', { title: art.art_title, styles: ["tables", "event"], art: art, tags: art['art_tags'] });}
     else{next();}

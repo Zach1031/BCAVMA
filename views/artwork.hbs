@@ -61,8 +61,8 @@
 
                     {{#each tags}}
                         <div class="form-check form-switch d-flex justify-content-start">
-                            <input class="form-check-input" type="checkbox" id="{{name}}Check" name="tags" value="{{name}}" {{#if check}} checked {{/if}}>
-                            <label class="form-check-label" for="{{name}}Check">{{name}}</label>
+                            <input class="form-check-input" type="checkbox" id="{{this}}Check" name="tags" value="{{toLowerCase this}}">
+                            <label class="form-check-label" for="{{this}}Check">{{this}}</label>
                         </div>
                     {{/each}}
                 </li>
@@ -133,6 +133,33 @@
             <hr>
     </div>
 <script>
+    //let tagQuery = new URLSearchParams(window.location.tags);
+    //if(tagQuery){
+    //    let tags = document.getElementsByClassName('form-check-input');
+    //for(i = 0; i < tags.length; i++){
+    //        let tag = tags.value;
+    //        if(tag.checked){
+    //            string = string !== "" ? string + "+" + tag.value.toLowerCase() : tag.value.toLowerCase();
+    //        }
+    //}
+    //}
+
+    let tagQuery = (new URLSearchParams(window.location.search)).get('tags');
+    if(tagQuery){
+        console.log(tagQuery);
+        console.log(typeof tagQuery);
+        tagQuery = tagQuery.split('+');
+        console.log(tagQuery);
+
+        tagQuery.forEach(tag =>{
+            queryString = "input[value=\'" + tag + "\']";
+            console.log(queryString);
+            document.querySelector(queryString).checked = true;    
+        });
+    }
+
+    //document.querySelector("input[value='male']").checked = true;    
+
     function checkSearch(e){
         if(e.keyCode == 13){
             searchByParams();
