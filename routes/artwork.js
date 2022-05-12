@@ -127,7 +127,7 @@ router.get('/:page_number', async function(req, res, next) {
         search: 'search',
         artwork: artwork,
         previous: page_number !== 1 ? page_number - 1 : null,
-        next: (page_number + 1) * 8 < artwork_length ? page_number + 1 : null,
+        next: page_number * 8 < artwork_length ? page_number + 1 : null,
         page_number: page_number,
         tags: tag_list
     });
