@@ -32,9 +32,7 @@ function containsID(jsonObj, ID){
 
 sortByCriteria = async (artworkList, criteria) => {
   let returnArtwork;
-  console.log(artworkList);
   if(criteria === "art_title"){
-    console.log('here');
     returnArtwork = artworkList.sort(function (a, b) {
     return a.art_title.localeCompare(b.art_title);
     });
@@ -46,20 +44,15 @@ sortByCriteria = async (artworkList, criteria) => {
     });
   }
 
-  console.log('------------------------');
-  console.log(returnArtwork);
   return returnArtwork;
 }
 
 function containsTag(tag, tag_list){
-  //console.log(tag);
   tag = (tag.toLowerCase()).trim();
   let returnVale = false;
 
   for(i = 0; i < tag_list.length; i++){
-    console.log((tag_list[i].toLowerCase()).trim());
     if(tag === (tag_list[i].toLowerCase()).trim()){
-      console.log('here');
       return true;
     }
   }
@@ -90,8 +83,6 @@ module.exports.getAllArtwork = async (data) => {
             item ["art_title"] = row.Artwork_Name;
             item ["art_creator"] = row.Artist_Name;
             item ["art_description"] = row.Description;;
-            // item ["art_source"] = row.Upload_Artwork;
-            //test other source of art
             artsourcelink = row.Upload_Artwork;
             baseUrl = "https://drive.google.com/uc?id";
             imageId = artsourcelink.substr(32, 34); //this will extract the image ID from the shared image link
@@ -135,7 +126,6 @@ module.exports.getArtwork = async (id) => {
   for (let index = 0; index < rows.length; index++) {
     var row = rows[index];
     if(row.Valid === "TRUE"){
-      console.log(row.ID + " -> " + id);
       if(row.ID === id){
         item = {};
         item ["art_title"] = row.Artwork_Name;

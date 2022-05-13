@@ -42,7 +42,6 @@ function isNumeric(page_number){
 
 function sortByCriteria (artworkList, criteria) {
   let returnArtwork;
-  console.log(artworkList);
   if(criteria === "art_title"){
     returnArtwork = artworkList.sort(function (a, b) {
     return a.art_title.localeCompare(b.art_title);
@@ -55,7 +54,6 @@ function sortByCriteria (artworkList, criteria) {
     });
   }
 
-  console.log(returnArtwork);
   return returnArtwork;
 }
 
@@ -63,7 +61,6 @@ function overlappingTags(tags1, tags2){
   for(i = 0; i < tags1.length; i++){
     for(j = 0; j < tags2.length; j++){
       if((tags1[i].toLowerCase()).trim() === (tags2[j].toLowerCase()).trim()){
-        console.log('here');
         return true;
       }
     }
