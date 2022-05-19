@@ -26,7 +26,7 @@ var loginRouter = require('./routes/login');
 var launchRouter = require('./routes/loadUnity');
 var submitRouter = require('./routes/submission');
 var chatRouter = require('./routes/chat');
-// var jsonRouter = require('./routes/json');
+var jsonRouter = require('./routes/json');
 var http = require('http');
 var app = express();
 var cors = require('cors');
@@ -171,7 +171,7 @@ app.use('/login', loginRouter);
 app.use('/loadUnity',launchRouter);
 app.use('/submission',submitRouter);
 app.use('/chat',chatRouter);
-// app.use('/json',jsonRouter);
+app.use('/json',jsonRouter);
 
 
 var hbs = require('hbs');
