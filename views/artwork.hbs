@@ -232,8 +232,8 @@
 
         }
 
-        console.log("/artwork/" + page_number + "?" + search_string);
-        window.location.href = "/artwork/" + page_number + "?" + search_string;
+        console.log("/artwork/" + page_number + "?" + (search_string.replace("+", "%2B")));
+        window.location.href = "/artwork/" + page_number + "?" + (search_string.replace("+", "%2B"));
     }
 
 
