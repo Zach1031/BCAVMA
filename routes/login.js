@@ -10,7 +10,7 @@ router.get('/', async function(req, res, next) {
   artwork_data.artwork.forEach(art =>{
     artwork.push({title: art['art_title'], id: art['art_id']});
   });
-  res.render('login', { title: 'BCAVMA', 
+  res.render('login', { title: 'BCAVAM', 
                         layout: 'layout',
                         artwork: artwork});
 });

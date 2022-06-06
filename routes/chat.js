@@ -6,7 +6,7 @@ var data = require('../data/data');
 router.get('/', async function(req, res, next) {
   let art = await data.getArtwork(req.query.room);
 
-  res.render('chat', { title: 'BCAVMA',
+  res.render('chat', { title: 'BCAVAM',
                         layout: 'layout',
                         art_source: art['art_source']});
 });

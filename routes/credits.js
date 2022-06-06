@@ -21,7 +21,7 @@ router.get('/', async function(req, res, next) {
     }
   }
 
-  res.render('credits', { title: 'BCAVMA', 
+  res.render('credits', { title: 'BCAVAM', 
                           layout: 'layout',
                           names: names});
 });

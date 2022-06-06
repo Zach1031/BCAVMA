@@ -119,7 +119,7 @@ router.get('/:page_number', async function(req, res, next) {
   let artwork_length = artwork.length;
   artwork = artwork.slice((page_number - 1) * 8, page_number * 8);
 
-  res.render('artwork', { title: 'BCAVMA',
+  res.render('artwork', { title: 'BCAVAM',
         layout: 'layout',
         search: 'search',
         artwork: artwork,

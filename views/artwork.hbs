@@ -1,57 +1,23 @@
 <link href="/stylesheets/index.css" rel="stylesheet">
 <link href="/stylesheets/artwork.css" rel="stylesheet">
 <link href="/stylesheets/search.css" rel="stylesheet">
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha256-aAr2Zpq8MZ+YA/D6JtRD3xtrwpEz2IqOS+pWD/7XKIw=" crossorigin="anonymous" /> -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" integrity="sha512-xmGTNt20S0t62wHLmQec2DauG9T+owP9e6VU8GigI0anN7OXLip9i7IwEhelasml2osdxX71XcYm6BQunTQeQg==" crossorigin="anonymous" />
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha256-OFRAJNoaD8L3Br5lglV7VyLRf0itmoBzWUoM+Sji4/8=" crossorigin="anonymous"></script> -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js" integrity="sha512-VvWznBcyBJK71YKEKDMpZ0pCVxjNuKwApp4zLF3ul+CiflQi6aIJR+aZCP/qWsoFBA28avL5T5HA+RE+zrGQYg==" crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-angular.min.js" integrity="sha512-KT0oYlhnDf0XQfjuCS/QIw4sjTHdkefv8rOJY5HHdNEZ6AmOh1DW/ZdSqpipe+2AEXym5D0khNu95Mtmw9VNKg==" crossorigin="anonymous"></script>
-   <style type="text/css">
-        /* .bootstrap-tagsinput{
-            width: 100%;
-        } */
-        .label-info{
-            background-color: #17a2b8;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" integrity="sha512-xmGTNt20S0t62wHLmQec2DauG9T+owP9e6VU8GigI0anN7OXLip9i7IwEhelasml2osdxX71XcYm6BQunTQeQg==" crossorigin="anonymous" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js" integrity="sha512-VvWznBcyBJK71YKEKDMpZ0pCVxjNuKwApp4zLF3ul+CiflQi6aIJR+aZCP/qWsoFBA28avL5T5HA+RE+zrGQYg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-angular.min.js" integrity="sha512-KT0oYlhnDf0XQfjuCS/QIw4sjTHdkefv8rOJY5HHdNEZ6AmOh1DW/ZdSqpipe+2AEXym5D0khNu95Mtmw9VNKg==" crossorigin="anonymous"></script>
+<style type="text/css">
+    .label-info{
+        background-color: #17a2b8;
 
-        }
-        /* .label {
-            display: inline-block;
-            padding: .25em .4em;
-            font-size: 75%;
-            font-weight: 700;
-            line-height: 1;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: .25rem;
-            transition: color .15s ease-in-out,background-color .15s ease-in-out,
-            border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-        } */
-    </style>
-    <div class="input-group">
-      <input type="search" id="search" onkeypress="checkSearch(event)" name="search" class="form-control rounded" placeholder="Search the gallery..." aria-label="Search" aria-describedby="search-addon">
-      <button onclick="searchByParams()" type="button" class="btn btn-outline-secondary" id="button-addon2"> Search </button>
-    </div>
+    }
+</style>
+<div class="input-group">
+    <input type="search" id="search" onkeypress="checkSearch(event)" name="search" class="form-control rounded" placeholder="Search the gallery..." aria-label="Search" aria-describedby="search-addon">
+    <button onclick="searchByParams()" type="button" class="btn btn-outline-secondary" id="button-addon2"> Search </button>
+</div>
 
 <div class="row">
     <div class="col-9">
-        {{!-- <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="freshmanCheck" name="tags" value="freshman">
-            <label class="form-check-label" for="freshmanCheck">Freshman</label>
-        </div>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="sophomoreCheck" name="tags" value="sophomore">
-            <label class="form-check-label" for="sophomoreCheck">Sophomore</label>
-        </div>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="juniorCheck" name="tags" value="junior">
-            <label class="form-check-label" for="juniorCheck">Junior</label>
-        </div>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="seniorCheck" name="tags" value="senior">
-            <label class="form-check-label" for="seniorCheck">Senior</label>
-        </div> --}}
         <button class="btn btn-secondary dropdown-toggle" type="button" id="sortMenu" data-bs-toggle="dropdown" aria-expanded="false">
             Tags
         </button>
@@ -83,8 +49,6 @@
     </div>
 </div>
             {{#each artwork}}
-
-            <!--- replace img with embed or iframe and change css (deals with all file types) || add conditional to do either img or video player --->
             <div class="container artwork col-3">
               <a href="/artwork/{{page_number}}?id={{art_id}}">
                 <div class = "frame">
@@ -103,13 +67,6 @@
     <nav aria-label="Page navigation example">
         <div class="row">
             <ul class="pagination row-md-3">
-                {{!-- {{#if previous}}
-                    <li class="page-item"><a class="page-link" href="pagination{{previous}}">Previous</a></li>
-                {{/if}}
-                    <li class="page-item"><a class="page-link" href="{{page_number}}">{{page_number}}</a></li>
-                {{#if next}}
-                    <li class="page-item"><a class="page-link" href="{{next}}">Next</a></li>
-                {{/if}} --}}
                 {{#if previous}}
                     <li class="page-item"><a id="previous" class="page-link" onclick="pagination({{previous}})">Previous</a></li>
                 {{/if}}
@@ -133,17 +90,6 @@
             <hr>
     </div>
 <script>
-    //let tagQuery = new URLSearchParams(window.location.tags);
-    //if(tagQuery){
-    //    let tags = document.getElementsByClassName('form-check-input');
-    //for(i = 0; i < tags.length; i++){
-    //        let tag = tags.value;
-    //        if(tag.checked){
-    //            string = string !== "" ? string + "+" + tag.value.toLowerCase() : tag.value.toLowerCase();
-    //        }
-    //}
-    //}
-
     let tagQuery = (new URLSearchParams(window.location.search)).get('tags');
     if(tagQuery){
         console.log(tagQuery);
@@ -157,8 +103,6 @@
             document.querySelector(queryString).checked = true;    
         });
     }
-
-    //document.querySelector("input[value='male']").checked = true;    
 
     function checkSearch(e){
         if(e.keyCode == 13){
