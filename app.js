@@ -18,7 +18,6 @@ const {
   getRoomUsers
 } = require('./utils/users');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var artworkRouter = require('./routes/artwork');
 var aboutRouter = require('./routes/about');
 var creditsRouter = require('./routes/credits');
